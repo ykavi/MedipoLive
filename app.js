@@ -1,13 +1,21 @@
 const express = require('express');
-const bp = require('body-parser');
-const app = express()
-app.set('view engine', 'ejs')
+const app = express();
 
-const port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-app.get('/', function(require,res){
-    res.render('home')
-});
+app.get('/', function (req, res) {
+    res.render('home');
+})
 
-app.use(bp.urlencoded({ extended: true }));
+server = app.listen(3000);
+
+const io = require('socket.io')(server);
+
+io.on('connect', (socket) => {
+    console.log('Yeni Baglanti');
+
+    socket.on('send message', (data) => {
+        io.emit('send message', (data));
+    });
+})
