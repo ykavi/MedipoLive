@@ -16,6 +16,8 @@ io.on('connect', (socket) => {
     console.log('Yeni Baglanti');
 
     socket.on('send message', (data) => {
-        io.emit('send message', (data));
+        socket.broadcast.emit('send message', (data));//'broadcast' kendisi haric socketteki baglı herkese yollar
+        socket.emit('Imessage',(data));
     });
+    
 })

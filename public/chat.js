@@ -1,12 +1,13 @@
 $(function () {
     var socket = io.connect('http://localhost:3000');
 
-    var message = $('#mesaj');
+    //var message = $('#mesaj');
 
     $("#send").click(function () {
         socket.emit('send message', $('#mesaj').val());
         $('#mesaj').val('');
         $("#mesaj").focus();
+        scrollBottom();
     });
     $('#mesaj').keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -14,14 +15,27 @@ $(function () {
             socket.emit('send message', $('#mesaj').val());
             $('#mesaj').val('');
             $("#mesaj").focus();
+            scrollBottom()
         }
         event.stopPropagation();
     });
 
     socket.on('send message', (data) => {
         $('#messages').append($('<li>').text(data));
+        scrollBottom()
+    });
+    socket.on('Imessage', (data) => {
+        $('#messages').append($('<li class="Imessage">').text(data));
+        $('#messages').append($('<div class="clear">'));
     });
 
+
+    function scrollBottom() {
+        scrollingElement = (document.scrollingElement || document.body)
+        $(scrollingElement).animate({
+            scrollTop: document.body.scrollHeight
+        }, 500);
+    }
 });
 
 
