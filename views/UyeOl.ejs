@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <title>Üye Ol</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="field">
+            <div class="control">
+            </div>
+        </div>
+        <form action="/UyeOl" method="POST">
+            <div class="field">
+                <label class="label">Kullanıcı Adı</label>
+                <div class="control">
+                    <input class="input" id="username" name="KullaniciAd" type="text" placeholder="Kavi00..">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Şifre</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" name="Sifre" id="password" type="password">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">E-mail</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input is-danger" name="Eposta" type="email" placeholder="kavi@gmail.com">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label" name="Soru">Güvenlik Sorusu</label>
+                <div class="control">
+                    <div class="select">
+                        <select>
+                            <option>
+                                En sevdiğiniz hayvan?
+                            </option>
+                            <option>
+                                En sevdiğiniz renk?
+                            </option>
+                            <option>
+                                En yakın arkadaşınızın adı nedir?
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Cevap</label>
+                <div class="control">
+                    <input class="input" name="Cevap" type="text" placeholder="Kedi..">
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-link">Kaydet</button>
+                </div>
+                <div class="control">
+                    <a href="/" class="button is-text">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

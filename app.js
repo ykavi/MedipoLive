@@ -1,13 +1,23 @@
 const express = require('express');
 const app = express();
-
+const bp = require('body-parser');
+const sql = require('mssql')
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+const login = require("./dbOperations")
+app.use(bp.urlencoded({ extended: true }));
 
-app.get('/', function (req, res) {
-    res.render('genel');
-})
+
+app.post('/giris', login.GirisYapildi);
+
+app.get('/UyeOl', login.UyeOl);
+
+app.post('/UyeOl', login.memberinsert);
+
+app.get('/',login.Giris);
+    
+
 app.get('/kuzey', function (req, res) {
     res.render('kuzey')
 })
@@ -29,12 +39,11 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('oda', (data) => {
         socket.join(data);
-        console.log(data + ' odası')
+        console.log('New connect ' + data)
     })
 
     socket.on('send message', (data) => {
-        console.log(data.oda)
-        socket.to(data.oda).emit('send message', (data.msg)); //socket.to Kendi dısında aynı odadakilere msjı yollar ** io.to odadaki tüm herkese yollar
+        socket.to(data.oda).emit('send message', {msg:data.msg,nick:data.nick}); //socket.to Kendi dısında aynı odadakilere msjı yollar ** io.to odadaki tüm herkese yollar
         /*socket.broadcast.emit('send message', (data));//'broadcast' kendisi haric socketteki baglı herkese yollar
         */
         socket.emit('Imessage', (data.msg));// socket.emit sadece kendine gozukur ** io.emit tum soketteki herkese yollar

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <title>Giriş</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="field">
+            <div class="control">
+            </div>
+        </div>
+        <form action="/giris" method="POST">
+            <div class="field" style="margin-top:100px">
+                <label class="label">Kullanıcı Adı</label>
+                <div class="control">
+                    <input class="input" id="username" name="ad" type="text" placeholder="Kavi00..">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Şifre</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" name="sifre" id="password" type="password">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <div class="field">
+                        <div class="control">
+                            <label class="checkbox">
+                                <input type="checkbox" onclick=BeniHatirla()>
+                                <a class="subtitle is-6">Beni Hatırla</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-link">Giriş Yap</button>
+                        </div>
+                        <div class="control">
+                            <a href="/UyeOl" class="button is-light">Üye Ol</a>
+                        </div>
+                    </div>
+        </form>
+    </div>
+    <script>
+        function BeniHatirla() {
+
+            localStorage.setItem('username', document.getElementById("username").value)
+            localStorage.setItem('password', document.getElementById("password").value)
+            document.getElementById("checkbox").checked
+
+        }
+        document.getElementById("username").value = localStorage.getItem('username')
+        document.getElementById("password").value = localStorage.getItem('password')
+        document.getElementById("sag").innerHTML = a;
+    </script>
+</body>
+
+</html>
