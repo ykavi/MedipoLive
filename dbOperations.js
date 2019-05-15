@@ -14,7 +14,7 @@ module.exports.memberinsert = function (req, res) {
             if (err) {
                 console.log(err);
             }
-            res.render('UyeOl');
+            res.render('giris',{hata:''});
             sql.close();
         });
     });
@@ -24,7 +24,7 @@ module.exports.UyeOl = function (req, res) {
 }
 module.exports.Giris = function (req, res) {
 
-    res.render('giris');
+    res.render('giris',{hata:''});
 }
 module.exports.GirisYapildi = function (req, res) {
     sql.connect(webconfig, function (err) {
@@ -40,7 +40,7 @@ module.exports.GirisYapildi = function (req, res) {
                     res.render('genel', { nick: req.body.ad });
                 }
                 else {
-                    res.redirect('/')
+                    res.render('giris',{hata:'Kullanici Adi veya Şifre Hatalı !'})
                 }
             });
             sql.close();

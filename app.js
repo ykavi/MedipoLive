@@ -15,8 +15,7 @@ app.get('/UyeOl', login.UyeOl);
 
 app.post('/UyeOl', login.memberinsert);
 
-app.get('/',login.Giris);
-    
+app.get('/', login.Giris);
 
 app.get('/kuzey', function (req, res) {
     res.render('kuzey')
@@ -43,7 +42,7 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on('send message', (data) => {
-        socket.to(data.oda).emit('send message', {msg:data.msg,nick:data.nick}); //socket.to Kendi dısında aynı odadakilere msjı yollar ** io.to odadaki tüm herkese yollar
+        socket.to(data.oda).emit('send message', { msg: data.msg, nick: data.nick }); //socket.to Kendi dısında aynı odadakilere msjı yollar ** io.to odadaki tüm herkese yollar
         /*socket.broadcast.emit('send message', (data));//'broadcast' kendisi haric socketteki baglı herkese yollar
         */
         socket.emit('Imessage', (data.msg));// socket.emit sadece kendine gozukur ** io.emit tum soketteki herkese yollar
