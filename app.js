@@ -14,8 +14,13 @@ app.post('/giris', login.GirisYapildi);
 app.get('/UyeOl', login.UyeOl);
 
 app.post('/UyeOl', login.memberinsert);
-
+app.get('/msgEkle',function(req,res){
+    res.send('asd')
+});
 app.get('/', login.Giris);
+app.get('/sifre',login.sifre);
+app.post('/sifre',login.YeniSifre);
+app.post('/sifreUpdate',login.sifreUpdate);
 
 app.get('/kuzey', function (req, res) {
     res.render('kuzey')
@@ -26,8 +31,6 @@ app.get('/guney', function (req, res) {
 app.get('/halic', function (req, res) {
     res.render('halic')
 })
-
-
 const port = process.env.PORT || 3000;
 server = app.listen(port);
 
@@ -46,7 +49,6 @@ io.sockets.on('connection', (socket) => {
         /*socket.broadcast.emit('send message', (data));//'broadcast' kendisi haric socketteki baglı herkese yollar
         */
         socket.emit('Imessage', (data.msg));// socket.emit sadece kendine gozukur ** io.emit tum soketteki herkese yollar
-
     });
 })
 

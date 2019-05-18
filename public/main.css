@@ -6,7 +6,10 @@
             color: white;
             text-align: center;
         }
-
+        .icerik {
+            width: 100%;
+            overflow: auto;
+        }
         .sidenav {
             height: 100%;
             width: 0;
@@ -70,8 +73,6 @@
             background: #eee;
             
         }
-
-      
         .icerik{
             margin-top: 65px;
             margin-bottom: 40px;

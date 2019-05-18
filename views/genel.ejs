@@ -11,11 +11,12 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="ana">
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;</span>
             <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Genel</a>
-            <div id="nick" style="display:none"><%=nick%> </div>
+            <div id="nick" style="float: right" ><%=nick%></div>
+
         </nav>
         <div class="columns level-left">
 
@@ -29,7 +30,7 @@
             </div>
 
         </div>
-        <div class="icerik">
+        <div class="icerik" id="icerik">
             <ul id="messages">
                 <li>
                     <h6 class="title is-6">Kavi</h6>Her şeyin mühim noktası, başlangıçtır.
@@ -43,7 +44,7 @@
                     <input id="mesaj" class="input is-info" type="text" placeholder="Mesajınızı buraya yazınız..">
                 </div>
                 <div class="control">
-                    <a id="send" class="button is-info">
+                    <a id="send" href="/msgEkle" class="button is-info">
                         Send
                     </a>
                 </div>
@@ -54,7 +55,10 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
     <script src="genel.js"></script>
+<script>
+localStorage.setItem('Ad',document.getElementById('nick').innerHTML)
 
+</script>
 </body>
 
 </html>

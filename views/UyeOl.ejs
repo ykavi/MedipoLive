@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding:10px">
         <div class="field">
             <div class="control">
             </div>
@@ -50,10 +50,10 @@
             </div>
 
             <div class="field">
-                <label class="label" name="Soru">Güvenlik Sorusu</label>
+                <label class="label">Güvenlik Sorusu</label>
                 <div class="control">
-                    <div class="select">
-                        <select>
+                    <div class="select" >
+                        <select  name="Soru">
                             <option>
                                 En sevdiğiniz hayvan?
                             </option>
@@ -74,13 +74,13 @@
                     <input class="input" name="Cevap" type="text" placeholder="Kedi..">
                 </div>
             </div>
-
+            <label class="label has-text-danger"><%=hata%></label>
             <div class="field is-grouped">
                 <div class="control">
                     <button type="submit" class="button is-link">Kaydet</button>
                 </div>
                 <div class="control">
-                    <a href="/" class="button is-text">Cancel</a>
+                    <a href="/"  class="button is-light">İptal</a>
                 </div>
             </div>
         </form>

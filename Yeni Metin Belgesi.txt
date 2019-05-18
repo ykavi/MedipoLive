@@ -1,0 +1,25 @@
+USE [MEDIPOLCHAT]
+GO
+
+/****** Object:  Table [dbo].[Kullanici]    Script Date: 14.05.2019 17:51:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Kullanici](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[KullaniciAd] [nvarchar](50) NULL,
+	[Sifre] [nvarchar](50) NULL,
+	[Email] [nvarchar](50) NULL,
+	[GuvenlikSorusu] [nvarchar](50) NULL,
+	[Cevap] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Kullanici] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
