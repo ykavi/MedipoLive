@@ -46,6 +46,18 @@ module.exports.UyeOl = function (req, res) {
 module.exports.Giris = function (req, res) {
     res.render('giris', { hata: '' });
 }
+module.exports.msgEkle = function (msg, nick, oda, req, res) {
+    sql.connect(webconfig, function (err) {
+        if (err) console.log(err);
+        var request1 = new sql.Request();
+        request1.query("insert into Mesajlar VALUES ('" + msg + "',(select Id from Kullanici where KullaniciAd = '" + nick + "'),GETDATE(),'" + oda + "'", function (err, verisonucu) {
+            if (err) {
+                console.log(err);
+            }
+            sql.close();
+        });
+    });
+}
 module.exports.GirisYapildi = function (req, res) {
     sql.connect(webconfig, function (err) {
         if (err) console.log(err);
@@ -61,8 +73,14 @@ module.exports.GirisYapildi = function (req, res) {
                         if (err) {
                             console.log(err);
                         }
-                        res.render('genel', { nick: req.body.ad });
-                        sql.close();
+                        request1.query("select * from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            sql.close();
+                            res.render('genel', { nick: req.body.ad, mesajlar: mesajlar.recordset });
+
+                        });
                     });
                 }
                 else {

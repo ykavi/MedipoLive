@@ -14,9 +14,7 @@ app.post('/giris', login.GirisYapildi);
 app.get('/UyeOl', login.UyeOl);
 
 app.post('/UyeOl', login.memberinsert);
-app.get('/msgEkle',function(req,res){
-    res.send('asd')
-});
+
 app.get('/', login.Giris);
 app.get('/sifre',login.sifre);
 app.post('/sifre',login.YeniSifre);
@@ -49,6 +47,7 @@ io.sockets.on('connection', (socket) => {
         /*socket.broadcast.emit('send message', (data));//'broadcast' kendisi haric socketteki baglı herkese yollar
         */
         socket.emit('Imessage', (data.msg));// socket.emit sadece kendine gozukur ** io.emit tum soketteki herkese yollar
+        login.msgEkle(data.msg,data.nick,data.oda);
     });
 })
 

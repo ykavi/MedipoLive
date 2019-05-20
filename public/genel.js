@@ -34,14 +34,7 @@ $(function () {
         $('#messages').append($('<div class="clear">'));
     });
 
-
-
-
-
-
-
-
-
+   
 
 
 
