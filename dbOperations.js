@@ -1,11 +1,13 @@
 const sql = require('mssql')
+const { Pool } = require('pg')
 var webconfig = {
     user: 'dogukan00',
     password: 'dogukan.12',
     server: 'MpChats.mssql.somee.com',
-    database: 'MpChats'
+    database: 'MpChats',
+    port: 1433
 };
-
+const pool = new sql.ConnectionPool(webconfig);
 module.exports.memberinsert = function (req, res) {
     sql.connect(webconfig, function (err) {
         if (err) console.log(err);
@@ -46,8 +48,8 @@ module.exports.UyeOl = function (req, res) {
 module.exports.Giris = function (req, res) {
     res.render('giris', { hata: '' });
 }
-module.exports.msgEkle = function (msg, nick, oda, req, res) {
-    sql.connect(webconfig, function (err) {
+module.exports.msgEkle = async function (msg, nick, oda, req, res) {
+    /*sql.connect(webconfig, function (err) {
         if (err) console.log(err);
         var request1 = new sql.Request();
         request1.query("insert into Mesajlar VALUES ('" + msg + "',(select Id from Kullanici where KullaniciAd = '" + nick + "'),GETDATE(),'" + oda + "'", function (err, verisonucu) {
@@ -56,7 +58,14 @@ module.exports.msgEkle = function (msg, nick, oda, req, res) {
             }
             sql.close();
         });
+    });*/
+    //const pool = new sql.ConnectionPool(webconfig);
+    pool.query("insert into Mesajlar VALUES ('" + msg + "',(select Id from Kullanici where KullaniciAd = '" + nick + "'),GETDATE(),'" + oda + "'", function (err, rows, fields) {
+        if (err) throw err;
+
+        console.log('The solution is: ', rows[0].solution);
     });
+
 }
 module.exports.GirisYapildi = function (req, res) {
     sql.connect(webconfig, function (err) {
