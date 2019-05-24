@@ -11,11 +11,11 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="ana">
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;</span>
             <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Kuzey</a>
-            <div id="nick" ></div>
+            <div id="nick"></div>
         </nav>
         <div class="columns level-left">
 
@@ -30,11 +30,27 @@
 
         </div>
         <div class="icerik" id="icerik">
-      
+
             <ul id="messages">
-                <li>
-                    <h6 class="title is-6">Kavi</h6>Her şeyin mühim noktası, başlangıçtır.
-                </li>
+                <% mesajlar.forEach(function(mesajlar){ %>
+                    <% if(nick===mesajlar.KullaniciAd) { %>
+                    <li class="Imessage"><span class="is-size-7" style="float: left"><%= mesajlar.eklenmeTarihi %></span>
+                        <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6><%= mesajlar.msg %>
+                        <span class="icon has-text-success" style="float: left">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </li>
+                    <div class="clear"></div>
+                    <% } else { %>
+                    <li>
+                        <span class="is-size-7" style="float: right"><%= mesajlar.eklenmeTarihi %></span>
+                        <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6><%= mesajlar.msg %>
+                        <span class="icon has-text-success" style="float: right;">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </li>
+                    <% } %>
+                <% }); %>
             </ul>
         </div>
 

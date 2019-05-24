@@ -71,7 +71,8 @@ body,html{
         #messages li {
             
             background-color: #f8f8f8;
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;
+            /*box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;*/
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,1.1)!important;
             margin: 9px;
             padding: 5px 10px;
             width: 50%;
@@ -88,7 +89,7 @@ body,html{
             text-align: right;
             float: right;
             background-color: #f8f8f8;
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,1.1)!important;
             margin: 9px;
         }
         .clear{

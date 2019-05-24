@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>Genel</title>
 </head>
 
@@ -33,22 +34,22 @@
         </div>
         <div class="icerik" id="icerik">
             <ul id="messages">
-
                 <% mesajlar.forEach(function(mesajlar){ %>
                 <% if(nick===mesajlar.KullaniciAd) { %>
-                <li class="Imessage">
+                <li class="Imessage"><span class="is-size-7" style="float: left"><%= mesajlar.eklenmeTarihi %></span>
                     <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6><%= mesajlar.msg %>
-                    <span class="icon has-text-success"  style="float: left">
+                    <span class="icon has-text-success" style="float: left">
                         <i class="fas fa-check"></i>
-                      </span>
+                    </span>
                 </li>
                 <div class="clear"></div>
                 <% } else { %>
                 <li>
+                    <span class="is-size-7" style="float: right"><%= mesajlar.eklenmeTarihi %></span>
                     <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6><%= mesajlar.msg %>
-                    <span class="icon has-text-success"  style="float: right;">
+                    <span class="icon has-text-success" style="float: right;">
                         <i class="fas fa-check"></i>
-                      </span>
+                    </span>
                 </li>
                 <% } %>
                 <% }); %>
