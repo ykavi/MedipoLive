@@ -1,3 +1,6 @@
+body,html{
+    overflow: auto;
+} 
  #footer {
             position: fixed;
             left: 0;
@@ -9,6 +12,7 @@
         .icerik {
             width: 100%;
             overflow: auto;
+            overflow-y: scroll;
         }
         .sidenav {
             height: 100%;
@@ -65,11 +69,14 @@
         }
 
         #messages li {
+            
+            background-color: #f8f8f8;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;
+            margin: 9px;
             padding: 5px 10px;
             width: 50%;
             word-wrap: break-word; 
             border-radius: 10px;
-            margin-bottom: 10px;
             background: #eee;
             
         }
@@ -80,7 +87,9 @@
         #messages .Imessage{
             text-align: right;
             float: right;
-            background-color:hsl(0, 0%, 86%);
+            background-color: #f8f8f8;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;
+            margin: 9px;
         }
         .clear{
             clear: both;

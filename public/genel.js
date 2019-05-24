@@ -1,5 +1,11 @@
+
 $(function () {
-    $("#icerik").height($(document.body).height() * 5);
+
+    $("#icerik").height(window.innerHeight - 120 +'px');
+    $('#icerik').scrollTop($('#icerik')[0].scrollHeight);
+    $( window ).resize(function() {
+        $("#icerik").height(window.innerHeight - 120 +'px');
+      });
     scrollingElement = (document.scrollingElement || document.body)
     $(scrollingElement).animate({
         scrollTop: document.body.scrollHeight
@@ -25,12 +31,14 @@ $(function () {
 
     socket.on('send message', (data) => {
         // $('#messages').append($('<li>').text(data));
-        document.getElementById('messages').innerHTML += '<li><h6 class="title is-6">' + data.nick + '</h6>' + data.msg + '</li>'
+        document.getElementById('messages').innerHTML += '<li><h6 class="title is-6">' + data.nick + '</h6>' + data.msg +'<span class="icon has-text-success"  style="float: left">'
+       +'<i class="fas fa-check"></i></span></li>'
         scrollBottom()
     });
     socket.on('Imessage', (data) => {
         // $('#messages').append($('<li class="Imessage">').text(data));
-        document.getElementById('messages').innerHTML += '<li class="Imessage"> <h6 class="title is-6">' + $('#nick').text() + '</h6>' + data + '</li>'
+        document.getElementById('messages').innerHTML += '<li class="Imessage"> <h6 class="title is-6">' + $('#nick').text() + '</h6>' + data +'<span class="icon has-text-success"  style="float: left">'+
+        '<i class="fas fa-check"></i></span>'+'</li>'
         $('#messages').append($('<div class="clear">'));
     });
 
@@ -79,8 +87,8 @@ function closeNav() {
 }
 window.onclick = function (event) {
     if (event.target.className == 'icerik') {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
+        //document.getElementById("mySidenav").style.width = "0";
+        //document.getElementById("main").style.marginLeft = "0";
     }
 }
 

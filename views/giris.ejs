@@ -6,29 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    
     <title>Giriş</title>
 </head>
 
 <body>
-    <div class="container" style="padding:10px">
+    <div class="container box" style="padding:10px; margin-top:10%; padding: 3%;" >
         <div class="field">
             <div class="control">
             </div>
         </div>
         <form action="/giris" method="POST">
-            <div class="field" style="margin-top:100px">
+            <div class="field">
                 <label class="label">Kullanıcı Adı</label>
-                <div class="control">
+                <div class="control has-icons-left">
                     <input class="input" id="username" name="ad" type="text" placeholder="Kavi00..">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
                 </div>
             </div>
 
             <div class="field">
                 <label class="label">Şifre</label>
-                <div class="control has-icons-left has-icons-right">
+                <div class="control has-icons-left">
                     <input class="input" name="sifre" id="password" type="password">
                     <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-key"></i>
                     </span>
                     <div class="field">
                         <div class="control">
