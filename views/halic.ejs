@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>Haliç</title>
 </head>
 
@@ -14,7 +16,7 @@
     <div class="ana">
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;</span>
-            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Haliç</a>
+            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6" id=odaName> Haliç</a>
             <div id="nick"></div>
         </nav>
         <div class="columns level-left">
@@ -22,7 +24,7 @@
             <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <a class="subtitle is-3">Oda Seçimi</a>
-                <a href="/" id="genel">Genel</a>
+                <a href="/genel" id="genel">Genel</a>
                 <a href="/kuzey" id="kuzey">Kuzey</a>
                 <a href="/guney" id="guney">Güney</a>
                 <a href="/halic" id="halic">Haliç</a>

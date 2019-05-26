@@ -19,6 +19,7 @@ app.post('/giris', login.GirisYapildi);
 
 app.get('/UyeOl', login.UyeOl);
 
+app.get('/genel', login.getGenel);
 app.post('/UyeOl', login.memberinsert);
 
 app.get('/', login.Giris);
@@ -29,6 +30,8 @@ app.post('/sifreUpdate', login.sifreUpdate);
 app.get('/kuzey', login.getMsgKuzey);
 app.get('/guney', login.getMsgGuney);
 app.get('/halic', login.getMsgHalic);
+app.get('/hesap', login.hesap);
+app.post('/hesapupdate', login.hesapupdate);
 
 
 const port = process.env.PORT || 3000;
@@ -41,11 +44,22 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('oda', (data) => {
         socket.join(data);
+        let count = io.sockets.adapter.rooms[data].length;
         console.log('New connect ' + data)
+        io.emit('onlineUser', (count));
     })
+
+    
     socket.on('disconnect', function () {
+        io.emit('DisUser', 'bos');
         console.log('Kullanıcı Ayrıldı')
     });
+
+    socket.on('odaName', (odaName) => {
+        let count = io.sockets.adapter.rooms[odaName].length;
+        io.emit('DisOnlineUser', (count));
+    });
+
 
     socket.on('send message', (data) => {
         socket.to(data.oda).emit('send message', { msg: data.msg, nick: data.nick }); //socket.to Kendi dısında aynı odadakilere msjı yollar ** io.to odadaki tüm herkese yollar

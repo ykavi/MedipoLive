@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>Genel</title>
+</head>
+
+<body>
+    <div id="ana">
+
+
+        <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
+            <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
+            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Genel</a>
+
+
+            <span id="SagNav" style="float:right" onclick="openNavRight()">&#9776;</span>
+
+
+
+        </nav>
+
+        <div class="columns level-left">
+
+            <div id="mySidenavright" class="sidenavright">
+
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNavRight()">&times;</a>
+
+                <a class="subtitle is-3" href="/hesap">Hesap Ayarları</a>
+
+                <a href="#" id="Cikis">Hesabımı Sil</a>
+                <a href="/" id="Cikis">Çıkış</a>
+            </div>
+
+        </div>
+
+        <div class="columns level-left">
+
+            <div id="mySidenav" class="sidenav">
+
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a class="subtitle is-3">Oda Seçimi</a>
+                <a href="/genel" id="genel">Genel</a>
+                <a href="/kuzey" id="kuzey">Kuzey</a>
+                <a href="/guney" id="guney">Güney</a>
+                <a href="/halic" id="halic">Haliç</a>
+            </div>
+
+        </div>
+
+        <form action="/hesapupdate" method="POST">
+            <div class="icerik" id="icerik">
+                <div class="container box" style="padding:10px; margin-top:2%; padding: 3%;">
+                    <label class="label">Kullanıcı Adı</label>
+                    <input class="input" id="username" name="mynickname" type="text" value="<%=nickname%>">
+                    <input class="input" id="username" name="mynickname2" type="text" value="<%=nickname%>"
+                        style="display:none">
+
+                    <label class="label">Şifre</label>
+                    <input class="input" id="username" name="mypassword" type="password" value="<%=password%>">
+
+                    <label class="label" name="GuvenlikSorusu">Güvenlik Sorusu</label>
+                    <div class="select">
+                        <select name="Soru">
+
+                            <% if(question===soru[1].GuvenlikSorusu) { %>
+                            <option>
+                                En sevdiğiniz hayvan?
+                            </option>
+                            <option selected>
+                                En sevdiğiniz renk?
+                            </option>
+                            <option>
+                                En yakın arkadaşınızın adı nedir?
+                            </option>
+                            <% } else if (question===soru[0].GuvenlikSorusu) { %>
+                            <option selected>
+                                En sevdiğiniz hayvan?
+                            </option>
+                            <option>
+                                En sevdiğiniz renk?
+                            </option>
+                            <option >
+                                En yakın arkadaşınızın adı nedir?
+                            </option>
+                            <% } else { %>
+                            <option>
+                                En sevdiğiniz hayvan?
+                            </option>
+                            <option>
+                                En sevdiğiniz renk?
+                            </option>
+                            <option selected>
+                                En yakın arkadaşınızın adı nedir?
+                            </option>
+                            <% } %>
+
+
+                        </select>
+                    </div>
+                    <label class="label">Cevap</label>
+                    <input class="input" id="username" name="myreply" type="text" value="<%=reply%>">
+                    <label class="label has-text-success"><%=hata%></label>
+                    <div class="control">
+                        <button type="submit" class="button is-link" style="margin:2%">Hesabımı Güncelle</button>
+                        <a href="/genel" class="button is-light" style="margin:2%">İptal</a>
+                    </div>
+                </div>
+
+
+            </div>
+    </div>
+
+
+    </div>
+
+    </form>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+    <script src="genel.js"></script>
+    <script>
+        localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
+
+    </script>
+</body>
+
+</html>

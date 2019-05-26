@@ -49,8 +49,17 @@ $(function () {
             '<i class="fas fa-check"></i></span>' + '</li>'
         $('#messages').append($('<div class="clear">'));
     });
+    socket.on('onlineUser', (count) => {
+        $('#onlineUser').text(count);
+    });
 
+    socket.on('DisOnlineUser', (count) => {
+        $('#onlineUser').text(count);
+    })
 
+    socket.on('DisUser', (bos) => {
+        io.emit('odaName', ($('#odaName').text()));
+    })
 
 
 
@@ -93,6 +102,17 @@ function closeNav() {
     document.getElementById("main").style.marginLeft = "0";
     document.body.style.backgroundColor = "white";
 }
+
+function openNavRight() {
+    document.getElementById("mySidenavright").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNavRight() {
+    document.getElementById("mySidenavright").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
+
 //window.onclick = function (event) {
     //if (event.target.className == 'icerik') {
         //document.getElementById("mySidenav").style.width = "0";
