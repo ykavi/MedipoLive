@@ -45,6 +45,9 @@ $(function () {
         $('#messages').append($('<div class="clear">'));
     });
 
+    socket.on('onlineUser', (count) => {
+        $('#onlineUser').text(count);
+    });
 
 
 

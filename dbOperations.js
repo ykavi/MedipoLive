@@ -97,6 +97,7 @@ module.exports.msgEkle = async function (msg, nick, oda, req, res) {
 
 }
 module.exports.GirisYapildi = function (req, res) {
+    sql.close();
     sql.connect(webconfig, function (err) {
         if (err) console.log(err);
         var request1 = new sql.Request();
@@ -244,10 +245,11 @@ module.exports.hesapupdate = function (req, res) {
 
     sql.connect(webconfig, function (err) {
         var request1 = new sql.Request();
-        request1.query("update kullanici set kullaniciAd='" + req.body.mynickname + "'  , Sifre='" + req.body.mypassword + "',GuvenlikSorusu='" + req.body.Soru + "', Cevap='" + req.body.myreply + "' where KullaniciAd='" + req.session.nick + "' or KullaniciAd='" + req.body.mynickname2 + "' ", function (err, hesap) {
+        request1.query("update kullanici set kullaniciAd='" + req.body.mynickname + "', Email='"+req.body.Email+"'  , Sifre='" + req.body.mypassword + "',GuvenlikSorusu='" + req.body.Soru + "', Cevap='" + req.body.myreply + "' where KullaniciAd='" + req.session.nick + "' or KullaniciAd='" + req.body.mynickname2 + "' ", function (err, hesap) {
             if (err) {
                 console.log(err);
             }
+            req.session.nick = req.body.mynickname;
             request1.query("select * from kullanici where KullaniciAd='" + req.body.mynickname + "'", function (err, hesaplar) {
                 if (err) {
                     console.log(err);

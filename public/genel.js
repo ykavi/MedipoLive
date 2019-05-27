@@ -53,14 +53,6 @@ $(function () {
         $('#onlineUser').text(count);
     });
 
-    socket.on('DisOnlineUser', (count) => {
-        $('#onlineUser').text(count);
-    })
-
-    socket.on('DisUser', (bos) => {
-        io.emit('odaName', ($('#odaName').text()));
-    })
-
 
 
 

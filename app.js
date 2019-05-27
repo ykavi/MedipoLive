@@ -44,21 +44,19 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('oda', (data) => {
         socket.join(data);
-        let count = io.sockets.adapter.rooms[data].length;
         console.log('New connect ' + data)
-        io.emit('onlineUser', (count));
     })
 
-    
+    let count = Object.keys(io.sockets.connected).length
+    io.emit('onlineUser', (count));
+
+
     socket.on('disconnect', function () {
-        io.emit('DisUser', 'bos');
         console.log('Kullanıcı Ayrıldı')
+        let count = Object.keys(io.sockets.connected).length
+        io.emit('onlineUser', (count));
     });
 
-    socket.on('odaName', (odaName) => {
-        let count = io.sockets.adapter.rooms[odaName].length;
-        io.emit('DisOnlineUser', (count));
-    });
 
 
     socket.on('send message', (data) => {

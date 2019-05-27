@@ -19,27 +19,7 @@
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
             <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Genel</a>
-
-
-            <span id="SagNav" style="float:right" onclick="openNavRight()">&#9776;</span>
-
-
-
         </nav>
-
-        <div class="columns level-left">
-
-            <div id="mySidenavright" class="sidenavright">
-
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNavRight()">&times;</a>
-
-                <a class="subtitle is-3" href="/hesap">Hesap Ayarları</a>
-
-                <a href="#" id="Cikis">Hesabımı Sil</a>
-                <a href="/" id="Cikis">Çıkış</a>
-            </div>
-
-        </div>
 
         <div class="columns level-left">
 
@@ -51,6 +31,11 @@
                 <a href="/kuzey" id="kuzey">Kuzey</a>
                 <a href="/guney" id="guney">Güney</a>
                 <a href="/halic" id="halic">Haliç</a>
+                <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/hesap">Hesap Bilgilerim</a>
+                <a href="#" id="Cikis">Hesabımı Sil</a>
+                <a href="/" id="Cikis">Çıkış</a>
+
             </div>
 
         </div>
@@ -65,6 +50,9 @@
 
                     <label class="label">Şifre</label>
                     <input class="input" id="username" name="mypassword" type="password" value="<%=password%>">
+
+                    <label class="label">E-mail</label>
+                    <input class="input" id="username" name="Email" type="text" value="<%=Email%>">
 
                     <label class="label" name="GuvenlikSorusu">Güvenlik Sorusu</label>
                     <div class="select">
@@ -87,7 +75,7 @@
                             <option>
                                 En sevdiğiniz renk?
                             </option>
-                            <option >
+                            <option>
                                 En yakın arkadaşınızın adı nedir?
                             </option>
                             <% } else { %>
@@ -110,7 +98,7 @@
                     <label class="label has-text-success"><%=hata%></label>
                     <div class="control">
                         <button type="submit" class="button is-link" style="margin:2%">Hesabımı Güncelle</button>
-                        <a href="/genel" class="button is-light" style="margin:2%">İptal</a>
+                        <a href="/genel" class="button is-light" style="margin:2%">Cancel</a>
                     </div>
                 </div>
 
