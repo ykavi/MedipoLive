@@ -1,8 +1,8 @@
 $(function () {
-    $("#icerik").height(window.innerHeight - 120 + 'px');
+    $("#icerik").height(window.innerHeight - 90 + 'px');
     $('#icerik').scrollTop($('#icerik')[0].scrollHeight);
     $(window).resize(function () {
-        $("#icerik").height(window.innerHeight - 120 + 'px');
+        $("#icerik").height(window.innerHeight - 90 + 'px');
     });
     scrollingElement = (document.scrollingElement || document.body)
     $(scrollingElement).animate({
@@ -103,3 +103,25 @@ function closeNav() {
         //document.getElementById("main").style.marginLeft = "0";
    // }
 //}
+
+var close = document.getElementsByClassName('modal-close')[0];
+close.onclick = function () {
+    modalim.style.display = 'none';
+}
+window.onclick = function (event) {
+    if (event.target.className == 'modal-background') {
+        modalim.style.display = 'none';
+    }
+}
+function onay(adres) {
+
+    modalim.style.display = 'block';
+    var onayButton = document.getElementById('onayButton');
+    onayButton.onclick = function () {
+        location.href = adres;
+    }
+    var vazgec = document.getElementById('vazgec');
+    vazgec.onclick = function () {
+        modalim.style.display = 'none';
+    }
+}

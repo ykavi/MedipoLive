@@ -76,7 +76,12 @@ body,html{
             transition: margin-left .5s;
             padding: 16px;
         }
-      
+        .uyari{
+            width:70%;
+            height:150px;
+          margin:0 auto;
+          margin-top:120px
+        }
         @media screen and (max-height: 450px ) {
             .sidenav {
                 padding-top: 15px;

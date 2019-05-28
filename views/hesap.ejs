@@ -33,7 +33,7 @@
                 <a href="/halic" id="halic">Haliç</a>
                 <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
                 <a href="/hesap">Hesap Bilgilerim</a>
-                <a href="#" id="Cikis">Hesabımı Sil</a>
+                <a name="/<%= Id2 %>" onclick="onay(this.name)">Hesabımı Sil</a>
                 <a href="/" id="Cikis">Çıkış</a>
 
             </div>
@@ -104,15 +104,45 @@
 
 
             </div>
+        </form>
+
     </div>
 
 
     </div>
 
-    </form>
+    <div class="modal" id="modalim">
+        <div class="modal-background"></div>
+        <div class="uyari">
+            <div class="card">
+                <header class="card-header ">
+                    <p class="card-header-title is-centered is-size-4	">
+                        Onay
+                    </p>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                        </span>
+                    </a>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        <p class="title is-5">Geri dönüşü olmamak üzere hesabınızı silme işlemini onaylıyor musunuz ?
+                        </p>
+                        <br>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a id="onayButton" class="card-footer-item">Onayla</a>
+
+                    <a id="vazgec" class="card-footer-item">Vazgeç</a>
+                </footer>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-    <script src="genel.js"></script>
+    <script src="hesap.js"></script>
     <script>
         localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
 
