@@ -46,12 +46,21 @@ $(function () {
     socket.on('Imessage', (data) => {
         // $('#messages').append($('<li class="Imessage">').text(data));
         document.getElementById('messages').innerHTML += '<li class="Imessage"><span class="is-size-7" style="float: left">' + strDate + '</span><h6 class="title is-6">' + $('#nick').text() + '</h6>' + data + '<span class="icon has-text-success"  style="float: left">' +
-            '<i class="fas fa-check"></i></span>' + '</li>'
+            '<i class="fas fa-check"></i></span>' + '</li>' +   '<label id="deneme" class="subtitle is-6 has-text-link" style="display: none; float: right; margin-top:15px">Sil</label>'
         $('#messages').append($('<div class="clear">'));
     });
     socket.on('onlineUser', (count) => {
         $('#onlineUser').text(count);
     });
+    $("h6").click(function (e) {
+        //$('label').toggle();//Toggle gizliyse gosterir açıksa kapatır
+        $("label[id*='" + e.target.id + "']").toggle();
+    });
+
+
+
+
+
 
 
 
@@ -96,10 +105,10 @@ function closeNav() {
 }
 
 //window.onclick = function (event) {
-    //if (event.target.className == 'icerik') {
-        //document.getElementById("mySidenav").style.width = "0";
-        //document.getElementById("main").style.marginLeft = "0";
-   // }
+//if (event.target.className == 'icerik') {
+//document.getElementById("mySidenav").style.width = "0";
+//document.getElementById("main").style.marginLeft = "0";
+// }
 //}
 
 

@@ -9,16 +9,17 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <title>Genel</title>
+    <title>Oneriler</title>
 </head>
 
 <body>
+    
     <div id="ana">
 
 
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
-            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Genel</a>
+            <a class="subtitle is-4">MpChat</a>
         </nav>
 
         <div class="columns level-left">
@@ -33,7 +34,9 @@
                 <a href="/halic" id="halic">Haliç</a>
                 <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
                 <a href="/hesap">Hesap Bilgilerim</a>
-                <a name="/<%= Id2 %>" onclick="onay(this.name)">Hesabımı Sil</a>
+                <% kullanici.forEach(function(user){ %>
+                    <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
+                <% }); %>
                 <a href="/oneri">Öneride Bulun</a>
                 <a href="/" id="Cikis">Çıkış</a>
 
@@ -41,65 +44,29 @@
 
         </div>
 
-        <form action="/hesapupdate" method="POST">
+        <form action="/oneri" method="POST">
             <div class="icerik" id="icerik">
-                <div class="container box" style="padding:10px; margin-top:2%; padding: 3%;">
-                    <label class="label">Kullanıcı Adı</label>
-                    <input class="input" id="username" name="mynickname" type="text" value="<%=nickname%>">
-                    <input class="input" id="username" name="mynickname2" type="text" value="<%=nickname%>"
-                        style="display:none">
-
-                    <label class="label">Şifre</label>
-                    <input class="input" id="username" name="mypassword" type="password" value="<%=password%>">
-
-                    <label class="label">E-mail</label>
-                    <input class="input" id="username" name="Email" type="text" value="<%=Email%>">
-
-                    <label class="label" name="GuvenlikSorusu">Güvenlik Sorusu</label>
-                    <div class="select">
-                        <select name="Soru">
-
-                            <% if(question===soru[1].GuvenlikSorusu) { %>
-                            <option>
-                                En sevdiğiniz hayvan?
-                            </option>
-                            <option selected>
-                                En sevdiğiniz renk?
-                            </option>
-                            <option>
-                                En yakın arkadaşınızın adı nedir?
-                            </option>
-                            <% } else if (question===soru[0].GuvenlikSorusu) { %>
-                            <option selected>
-                                En sevdiğiniz hayvan?
-                            </option>
-                            <option>
-                                En sevdiğiniz renk?
-                            </option>
-                            <option>
-                                En yakın arkadaşınızın adı nedir?
-                            </option>
-                            <% } else { %>
-                            <option>
-                                En sevdiğiniz hayvan?
-                            </option>
-                            <option>
-                                En sevdiğiniz renk?
-                            </option>
-                            <option selected>
-                                En yakın arkadaşınızın adı nedir?
-                            </option>
-                            <% } %>
-
-
-                        </select>
+                <div class="container box" style="padding:10px; margin-top:50px; padding: 3%;">
+                    <h3 class="subtitle is-3">Öneri ve Görüşler</h3>
+                    <div class="field">
+                        <label class="label">Konu</label>
+                        <div class="control">
+                            <input class="input" id="username" name="konu" type="text">
+                            <label class="label" style="margin:5px 0px 5px 0px;">İletiniz</label>
+                            <div class="field">
+                                <div class="control">
+                                    
+                                  <textarea class="textarea is-info" placeholder="Buraya yazabilirsiniz..." style="resize: none;" name="oneri"></textarea>
+                                </div>
+                                <label class="label has-text-success" style="margin-top:5px"><%=hata%></label>
+                              </div>
+                      
+                        </div>
                     </div>
-                    <label class="label">Cevap</label>
-                    <input class="input" id="username" name="myreply" type="text" value="<%=reply%>">
-                    <label class="label has-text-success"><%=hata%></label>
+
                     <div class="control">
-                        <button type="submit" class="button is-link" style="margin:2%">Hesabımı Güncelle</button>
-                        <a href="/genel" class="button is-light" style="margin:2%">Cancel</a>
+                        <button type="submit" class="button is-link" style="margin:2%">Gönder</button>
+                        <a href="/genel" class="button is-light" style="margin:2%">İptal</a>
                     </div>
                 </div>
 
@@ -143,7 +110,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-    <script src="hesap.js"></script>
+    <script src="oneri.js"></script>
     <script>
         localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
 

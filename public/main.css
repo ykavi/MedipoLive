@@ -110,6 +110,9 @@ body,html{
             background: #eee;
             
         }
+        li h6 {
+            cursor: pointer;
+        }
         .icerik{
             margin-top: 65px;
             margin-bottom: 40px;
