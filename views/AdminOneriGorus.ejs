@@ -9,16 +9,17 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <title>Genel</title>
+    <title>Oneriler</title>
 </head>
 
 <body>
+    
     <div id="ana">
+
 
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
-            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6" id=odaName> Genel</a>
-            <div id="nick" style="display:none"><%=nick%></div>
+            <a class="subtitle is-4">MpChat</a>
         </nav>
 
         <div class="columns level-left">
@@ -33,59 +34,56 @@
                 <a href="/halic" id="halic">Haliç</a>
                 <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
                 <a href="/hesap">Hesap Bilgilerim</a>
-
                 <% kullanici.forEach(function(user){ %>
-                <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
+                    <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
                 <% }); %>
-                <a href="/oneri">Öneride Bulun</a>
+                <a href="/AdminOneriler">Öneriler</a>
                 <a href="/" id="Cikis">Çıkış</a>
+
             </div>
 
         </div>
 
-        <div class="icerik" id="icerik">
-            <ul id="messages">
-                <% mesajlar.forEach(function(mesajlar){ %>
-                <% if(nick===mesajlar.KullaniciAd) { %>
-                <li  id="<%= mesajlar.Id[0]%>" onclick="disPlay(this.id)"  class="Imessage"><span class="is-size-7" style="float: left"><%= mesajlar.eklenmeTarihi %></span>
-                    <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6>
-                    <%= mesajlar.msg %>
-                    <span class="icon has-text-success" style="float: left">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </li><label id="<%= mesajlar.Id[0]%>" onclick="silDB(this.id)" class="subtitle is-6 has-text-link"
-                    style="display: none; float: right; margin-top:15px">Sil</label>
-                <div class="clear"></div>
-                <% } else { %>
+      
+            <div class="icerik" id="icerik">
+                <div class="container box" style="padding:10px; margin-top:50px; padding: 3%;">
+                    <h3 class="subtitle is-4">Öneri ve Görüşler</h3>
+                    <div id="liste">
+                    <% Oneriler.forEach(function(Oneriler){ %>
+                    <div class="list is-hoverable",>
 
-                <li  id="<%= mesajlar.Id[0]%>" onclick="disPlay(this.id)"  style="float: left">
-                    <span class="is-size-7" style="float: right"><%= mesajlar.eklenmeTarihi %></span>
-                    <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6>
-                    <%= mesajlar.msg %>
-                    <span class="icon has-text-success" style="float: right;">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </li><label id="<%= mesajlar.Id[0]%>" onclick="sikayetEt(this.id)" class="subtitle is-6 has-text-link"
-                    style="float: left; display: none; margin-top:15px">Şikayet Et</label>
-                <% } %>
-                <% }); %>
-
-            </ul>
-        </div>
-
-        <div id="footer">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input id="mesaj" class="input is-info" type="text" placeholder="Mesajınızı buraya yazınız..">
+                            <a class="list-item" style="padding:2%;">
+                                    <label class="label">Kullanıcı: </label>
+                                    <input class="input" id="username" name="kullanici" type="text"
+                                        value="  <%= Oneriler.KullaniciAd %>">
+                                    <label class="label">Konu:</label>
+                                    <input class="input" id="username" name="konu" type="text" value=" <%= Oneriler.konu  %>">
+                                    <form action="/AdminOneriGorus" method="POST">
+                                    <input class="input" id="username" name="no" type="text" value="<%=no%>" style="display:none">
+                                    <label class="label" style="margin:5px 0px 5px 0px;">İleti</label>
+                                        <textarea class="textarea is-info"  style="resize: none;" name="oneri"><%= Oneriler.msg  %></textarea>
+                                      
+                             
+                                        <a class="button is-info" href="/AdminOneriler" style="margin:15px;float:left">Önerilere Dön</a>
+                                      
+                                        <button type="submit" class="button is-danger" style="margin:15px;">Sil</button>
+                                        </form>
+        
+                                  </a>
+                                
+                        </div>
+                        <% }); %>
+                    </div>
                 </div>
-                <div class="control">
-                    <a id="send" class="button is-info">
-                        Send
-                    </a>
-                </div>
+
+
             </div>
-        </div>
+      
     </div>
+
+
+    </div>
+
     <div class="modal" id="modalim">
         <div class="modal-background"></div>
         <div class="uyari">
@@ -117,10 +115,13 @@
     </div>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-    <script src="genel.js"></script>
+    <script src="oneri.js"></script>
     <script>
         localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
+function Goster(){
 
+document.getElementById('liste').style.display = 'none';
+}
     </script>
 </body>
 

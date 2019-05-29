@@ -79,41 +79,79 @@ module.exports.GirisYapildi = function (req, res) {
 
     return pool2Connect.then((pool) => {
         pool.request() // or: new sql.Request(pool2)
-            .query("Select dbo.fn_UyeVarmi('" + req.body.ad + "','" + req.body.sifre + "') as Sonuc", function (err, verisonucu) {
+            .query("Select dbo.fn_AdminVarmi('" + req.body.ad + "','" + req.body.sifre + "') as Sonuc", function (err, verisonucu) {
                 if (err) {
                     return console.error(err)
                 }
                 verisonucu.recordset.forEach(function (kullanici) {
                     if (kullanici.Sonuc == "Evet") {
-
                         req.session.nick = req.body.ad;
                         pool.request()
-                            .query("insert into AktifKullanici values('" + req.body.ad + "',GETDATE())", function (err, recordset) {
-
+                            .query("select * from Adminler where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
                                 if (err) {
                                     console.log(err);
                                 }
-                                pool.request()
-                                    .query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
-                                        if (err) {
-                                            console.log(err);
-                                        }
-                                        pool.request()
-                                            .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
-                                                if (err) {
-                                                    console.log(err);
-                                                }
-                                                res.render('genel', { nick: req.body.ad, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
-                                            });
-                                    });
+                                res.render('admin', { nick: req.body.ad, kullanici: kullanicilar.recordset });
                             });
                     }
-                    else {
-                        res.render('giris', { hata: 'Kullanici Adi veya Şifre Hatalı !' })
-                        sql.close();
-                    }
+
                 });
-            })
+            });
+        pool.request() // or: new sql.Request(pool2)
+            .query("Select dbo.fn_UyeVarmi('" + req.body.ad + "','" + req.body.sifre + "') as Sonuc", function (err, verisonucu) {
+                if (err) {
+                    return console.error(err)
+                }
+                pool.request() // or: new sql.Request(pool2)
+                    .query("Select dbo.fn_AdminVarmi('" + req.body.ad + "','" + req.body.sifre + "') as Sonuc", function (err, admin) {
+                        if (err) {
+                            return console.error(err)
+                        }
+                        verisonucu.recordset.forEach(function (kullanici) {
+                            admin.recordset.forEach(function (admin) {
+                                if (admin.Sonuc == "Evet") {
+                                    req.session.nick = req.body.ad;
+                                    pool.request()
+                                        .query("select * from Adminler where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                                            if (err) {
+                                                console.log(err);
+                                            }
+                                            res.render('admin', { nick: req.body.ad, kullanici: kullanicilar.recordset });
+                                        });
+                                }
+                                else if (kullanici.Sonuc == "Evet") {
+
+                                    req.session.nick = req.body.ad;
+                                    pool.request()
+                                        .query("insert into AktifKullanici values('" + req.body.ad + "',GETDATE())", function (err, recordset) {
+
+                                            if (err) {
+                                                console.log(err);
+                                            }
+                                            pool.request()
+                                                .query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    }
+                                                    pool.request()
+                                                        .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                                                            if (err) {
+                                                                console.log(err);
+                                                            }
+                                                            res.render('genel', { nick: req.body.ad, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
+                                                        });
+                                                });
+                                        });
+                                }
+                                else {
+                                    res.render('giris', { hata: 'Kullanici Adi veya Şifre Hatalı !' })
+
+                                }
+                            });
+                        });
+                    });
+            });
+
     }).catch(err => {
         // ... error handler
     })
@@ -373,15 +411,16 @@ module.exports.hesapupdate = function (req, res) {
 module.exports.GetOneri = function (req, res) {
 
     return pool2Connect.then((pool) => {
+        req.session.no = req.body.no
         // or: new sql.Request(pool2)
         pool.request() // or: new sql.Request(pool2)
-        .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
-            if (err) {
-                console.log(err);
-            }
-            sql.close();
-            res.render('oneri', { nick: req.session.nick,  kullanici: kullanicilar.recordset,hata:'' });
-        })
+            .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                if (err) {
+                    console.log(err);
+                }
+                sql.close();
+                res.render('oneri', { nick: req.session.nick, kullanici: kullanicilar.recordset, hata: '' });
+            })
     }).catch(err => {
         // ... error handler
     })
@@ -391,19 +430,180 @@ module.exports.PostOneri = function (req, res) {
     return pool2Connect.then((pool) => {
         // or: new sql.Request(pool2)
         pool.request() // or: new sql.Request(pool2)
-        .query("insert into Oneriler Values('"+req.body.oneri+"','"+req.body.konu+"',(select Id from kullanici where KullaniciAd='"+req.session.nick+"'),GETDATE(),'Oneriler')", function (err, kullanicilar) {
-            if (err) {
-                console.log(err);
-            }
-            pool.request()
+            .query("insert into Oneriler Values('" + req.body.oneri + "','" + req.body.konu + "',(select Id from kullanici where KullaniciAd='" + req.session.nick + "'),GETDATE(),'Oneriler')", function (err, kullanicilar) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request()
+                    .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                        if (err) {
+                            console.log(err);
+                        }
+
+                        res.render('oneri', { nick: req.session.nick, kullanici: kullanicilar.recordset, hata: 'İletiniz başarıyla gönderilmiştir.' });
+                    })
+            })
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.GetAdmin = function (req, res) {
+    return pool2Connect.then((pool) => {
+
+        pool.request() // or: new sql.Request(pool2)
             .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
                 if (err) {
                     console.log(err);
                 }
-            
-            res.render('oneri', { nick: req.session.nick,  kullanici: kullanicilar.recordset,hata:'İletiniz başarıyla gönderilmiştir.' });
-        })
+
+                res.render('admin', { nick: req.session.nick, kullanici: kullanicilar.recordset });
+            });
+
+    }).catch(err => {
+        // ... error handler
     })
+
+}
+
+module.exports.GetAdminOneriler = function (req, res) {
+
+    return pool2Connect.then((pool) => {
+        // or: new sql.Request(pool2)
+        pool.request() // or: new sql.Request(pool2)
+            .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request() // or: new sql.Request(pool2)
+                    .query("select o.Id,k.KullaniciAd,o.konu from Oneriler o,kullanici k where o.userID=k.Id", function (err, Oneriler) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        sql.close();
+                        res.render('AdminOneriler', { nick: req.session.nick, kullanici: kullanicilar.recordset, hata: '', Oneriler: Oneriler.recordset, kod: '' });
+                    });
+            });
+    }).catch(err => {
+        // ... error handler
+    })
+}
+
+module.exports.PostAdminOneriler = function (req, res) {
+
+    return pool2Connect.then((pool) => {
+        req.session.no = req.body.no
+        // or: new sql.Request(pool2)
+        pool.request() // or: new sql.Request(pool2)
+            .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request() // or: new sql.Request(pool2)
+                    .query("select o.Id,msg,k.KullaniciAd,o.konu from Oneriler o,kullanici k where o.userID=k.Id and o.Id=" + req.body.no + "", function (err, Oneriler) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        pool.request() // or: new sql.Request(pool2)
+
+
+                        res.render('AdminOneriGorus', { nick: req.session.nick, kullanici: kullanicilar.recordset, hata: '', Oneriler: Oneriler.recordset, no: req.body.no });
+
+                    });
+            });
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.GetAdminOneriGorus = function (req, res) {
+    return pool2Connect.then((pool) => {
+        req.session.no = req.body.no
+        // or: new sql.Request(pool2)
+        pool.request() // or: new sql.Request(pool2)
+            .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request() // or: new sql.Request(pool2)
+                    .query("select o.Id,msg,k.KullaniciAd,o.konu from Oneriler o,kullanici k where o.userID=k.Id  ", function (err, Oneriler) {
+                        if (err) {
+                            console.log(err);
+                        }
+
+
+                        res.render('AdminOneriGorus', { nick: req.session.nick, kullanici: kullanicilar.recordset, hata: '', Oneriler: Oneriler.recordset, no: req.body.no });
+                    });
+            });
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.PostAdminOneriGorus = function (req, res) {
+    return pool2Connect.then((pool) => {
+        pool.request() // or: new sql.Request(pool2)
+            .query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request() // or: new sql.Request(pool2)
+                    .query("delete from Oneriler where Id= " + req.body.no + " ", function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        pool.request() // or: new sql.Request(pool2)
+
+                            .query("   select o.Id,k.KullaniciAd,o.konu from Oneriler o,kullanici k where o.userID=k.Id", function (err, Oneriler) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                res.render('AdminOneriler', { nick: req.session.nick, kullanici: kullanicilar.recordset, hata: '', Oneriler: Oneriler.recordset });
+                            });
+
+
+                    });
+            });
+
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.silMsg = function (nick, msg, oda, req, res) {
+    return pool2Connect.then((pool) => {
+
+        pool.request() // or: new sql.Request(pool2)
+            .query("delete Mesajlar where Id = (select  max(Id) as Id from mesajlar where odaAdi = '" + oda + "' and msg = '" + msg + "' and userID in(select Id from Kullanici where KullaniciAd = '" + nick + "'))", function (err, data) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.silMsgDB = function (msgId, req, res) {
+    return pool2Connect.then((pool) => {
+
+        pool.request() // or: new sql.Request(pool2)
+            .query("delete Mesajlar where Id = " + msgId + "", function (err, data) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.sikayetEt = function (msgId, req, res) {
+    return pool2Connect.then((pool) => {
+
+        pool.request() // or: new sql.Request(pool2)
+            .query("insert into sikayetMsj VALUES (" + msgId + ")", function (err, data) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
     }).catch(err => {
         // ... error handler
     })

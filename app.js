@@ -14,7 +14,6 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
 app.post('/giris', login.GirisYapildi);
 
 app.get('/UyeOl', login.UyeOl);
@@ -34,10 +33,17 @@ app.get('/hesap', login.hesap);
 app.post('/hesapupdate', login.hesapupdate);
 
 app.get('/hesap/:id', login.HesapSilindi);
-app.get('/oneri',login.GetOneri);
+app.get('/oneri', login.GetOneri);
 
-app.post('/oneri',login.PostOneri);
+app.post('/oneri', login.PostOneri);
 
+app.get('/admin', login.GetAdmin);
+app.get('/AdminOneriler', login.GetAdminOneriler);
+app.post('/AdminOneriler', login.PostAdminOneriler);
+app.get('/AdminOneriGorus', login.GetAdminOneriGorus);
+app.post('/AdminOneriGorus', login.PostAdminOneriGorus);
+/*
+app.get('/AdminOneriGorus',login.GetAdminOneriGorus);*/
 const port = process.env.PORT || 3000;
 server = app.listen(port);
 
@@ -50,6 +56,16 @@ io.sockets.on('connection', (socket) => {
         socket.join(data);
         console.log('New connect ' + data)
     })
+    socket.on('sil', (data) => {
+        login.silMsg(data.nick, data.msg, data.oda);
+    })
+    socket.on('silDB', (data) => {
+        login.silMsgDB(data);
+    })
+    socket.on('sikayetEt', (data) => {
+        login.sikayetEt(data);
+    })
+
 
     let count = Object.keys(io.sockets.connected).length
     io.emit('onlineUser', (count));
