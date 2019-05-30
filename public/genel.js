@@ -40,8 +40,8 @@ $(function () {
     socket.on('send message', (data) => {
         rs = Math.random();
         // $('#messages').append($('<li>').text(data));
-        document.getElementById('messages').innerHTML += '<li  onclick="disPlay(' + rs + ')" style="float:left"><span class="is-size-7" style="float: right">' + strDate + '</span><h6 class="title is-6">' + data.nick + '</h6>' + data.msg + '<span class="icon has-text-success"  style="float: right">'
-            + '<i class="fas fa-check"></i></span></li>' + '<label name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: left; margin-top:15px">Şikayet Et</label>'
+        document.getElementById('messages').innerHTML += '<div id="' + rs + '" style="display:none">' + data.msg + '</div>' + '<li id="' + rs + '"  onclick="disPlay(' + rs + ')" style="float:left"><span class="is-size-7" style="float: right">' + strDate + '</span><h6 id="' + (rs + 1) + '" class="title is-6">' + data.nick + '</h6>' + data.msg + '<span class="icon has-text-success"  style="float: right">'
+            + '<i class="fas fa-check"></i></span></li>' + '<label onclick="sikayetEtADD(' + rs + ')" name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: left; margin-top:15px">Şikayet Et</label>'
         scrollBottom()
     });
     socket.on('Imessage', (data) => {
@@ -85,22 +85,28 @@ function disPlay(e) {
 function sil(e) {
     var socket = io.connect('/');
     socket.emit('sil', { nick: $('#nick').text(), msg: document.getElementById(e).innerHTML, oda: 'Genel' });
-    $("li[id*='" + e + "']").hide( "slow" );
-    $("label[name*='" + e + "']").hide( "slow" );
+    $("li[id*='" + e + "']").hide("slow");
+    $("label[name*='" + e + "']").hide("slow");
 }
 function silDB(msgId) {
     var socket = io.connect('/');
     socket.emit('silDB', msgId);
-    $("li[id*='" + msgId + "']").hide( "slow" );
-    $("label[id*='" + msgId + "']").hide( "slow" );
+    $("li[id*='" + msgId + "']").hide("slow");
+    $("label[id*='" + msgId + "']").hide("slow");
 }
-function sikayetEt(msgId){
+function sikayetEt(msgId) {
     var socket = io.connect('/');
     socket.emit('sikayetEt', msgId);
     $("li[id*='" + msgId + "']").hide(500);
-    $("label[id*='" + msgId + "']").hide( 500 );
+    $("label[id*='" + msgId + "']").hide(500);
 }
-
+function sikayetEtADD(e) {
+    var socket = io.connect('/');
+    var nick = document.getElementById(e + 1).innerHTML;
+    socket.emit('sikayetEtADD', { nick: nick, msg: document.getElementById(e).innerHTML, oda: 'Genel' });
+    $("li[id*='" + e + "']").hide(500);
+    $("label[name*='" + e + "']").hide(500);
+}
 
 
 

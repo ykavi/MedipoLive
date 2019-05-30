@@ -35,14 +35,17 @@ $(function () {
     var d = new Date();
     var strDate = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
     socket.on('send message', (data) => {
-        document.getElementById('messages').innerHTML += '<li><span class="is-size-7" style="float: right">' + strDate + '</span><h6 class="title is-6">' + data.nick + '</h6>' + data.msg + '<span class="icon has-text-success"  style="float: right">'
-            + '<i class="fas fa-check"></i></span></li>'
-
+        rs = Math.random();
+        // $('#messages').append($('<li>').text(data));
+        document.getElementById('messages').innerHTML += '<div id="' + rs + '" style="display:none">' + data.msg + '</div>' + '<li id="' + rs + '"  onclick="disPlay(' + rs + ')" style="float:left"><span class="is-size-7" style="float: right">' + strDate + '</span><h6 id="' + (rs + 1) + '" class="title is-6">' + data.nick + '</h6>' + data.msg + '<span class="icon has-text-success"  style="float: right">'
+            + '<i class="fas fa-check"></i></span></li>' + '<label onclick="sikayetEtADD(' + rs + ')" name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: left; margin-top:15px">Şikayet Et</label>'
         scrollBottom()
     });
     socket.on('Imessage', (data) => {
-        document.getElementById('messages').innerHTML += '<li class="Imessage"><span class="is-size-7" style="float: left">' + strDate + '</span><h6 class="title is-6">' + $('#nick').text() + '</h6>' + data + '<span class="icon has-text-success"  style="float: left">' +
-            '<i class="fas fa-check"></i></span>' + '</li>'
+        rs = Math.random();
+        // $('#messages').append($('<li class="Imessage">').text(data));
+        document.getElementById('messages').innerHTML += '<div id="' + rs + '" style="display:none">' + data + '</div><li id="' + rs + '" onclick="disPlay(' + rs + ')" class="Imessage"><span class="is-size-7" style="float: left">' + strDate + '</span><h6 class="title is-6">' + $('#nick').text() + '</h6>' + data + '<span class="icon has-text-success"  style="float: left">' +
+            '<i class="fas fa-check"></i></span>' + '</li>' + '<label onclick="sil(' + rs + ')" name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: right; margin-top:15px">Sil</label>'
         $('#messages').append($('<div class="clear">'));
     });
     socket.on('onlineUser', (count) => {
@@ -68,6 +71,35 @@ $(function () {
     }
 });
 
+function disPlay(e) {
+    $("label[id*='" + e + "']").toggle();
+    $("label[name*='" + e + "']").toggle();
+}
+function sil(e) {
+    var socket = io.connect('/');
+    socket.emit('sil', { nick: $('#nick').text(), msg: document.getElementById(e).innerHTML, oda: 'Kuzey' });
+    $("li[id*='" + e + "']").hide("slow");
+    $("label[name*='" + e + "']").hide("slow");
+}
+function silDB(msgId) {
+    var socket = io.connect('/');
+    socket.emit('silDB', msgId);
+    $("li[id*='" + msgId + "']").hide("slow");
+    $("label[id*='" + msgId + "']").hide("slow");
+}
+function sikayetEt(msgId) {
+    var socket = io.connect('/');
+    socket.emit('sikayetEt', msgId);
+    $("li[id*='" + msgId + "']").hide(500);
+    $("label[id*='" + msgId + "']").hide(500);
+}
+function sikayetEtADD(e) {
+    var socket = io.connect('/');
+    var nick = document.getElementById(e + 1).innerHTML;
+    socket.emit('sikayetEtADD', { nick: nick, msg: document.getElementById(e).innerHTML, oda: 'Kuzey' });
+    $("li[id*='" + e + "']").hide(500);
+    $("label[name*='" + e + "']").hide(500);
+}
 
 
 

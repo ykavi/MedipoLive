@@ -32,10 +32,10 @@
                 <a href="/guney" id="guney">Güney</a>
                 <a href="/halic" id="halic">Haliç</a>
                 <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
-                <a href="/hesap">Hesap Bilgilerim</a>
+                <a href="/adminhesap">Hesap Bilgilerim</a>
 
                 <% kullanici.forEach(function(user){ %>
-                <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
+                <a name="/adminhesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
                 <% }); %>
                 <a href="/AdminOneriler">Öneriler</a>
                 <a href="/" id="Cikis">Çıkış</a>

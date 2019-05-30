@@ -598,7 +598,7 @@ module.exports.sikayetEt = function (msgId, req, res) {
     return pool2Connect.then((pool) => {
 
         pool.request() // or: new sql.Request(pool2)
-            .query("insert into sikayetMsj VALUES (" + msgId + ")", function (err, data) {
+            .query("insert into sikayetMsj(mesajId) VALUES (" + msgId + ")", function (err, data) {
                 if (err) {
                     console.log(err);
                 }
@@ -608,6 +608,81 @@ module.exports.sikayetEt = function (msgId, req, res) {
         // ... error handler
     })
 }
+module.exports.sikayetEtADD = function (nick, msg, odaAdi, req, res) {
+    return pool2Connect.then((pool) => {
+
+        pool.request() // or: new sql.Request(pool2)
+            .query("insert into sikayetMsj(nick,mesaj,odaAdi) VALUES ('" + nick + "','" + msg + "','" + odaAdi + "')", function (err, data) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
+    }).catch(err => {
+        // ... error handler
+    })
+}
+
+module.exports.AdminHesap = function (req, res) {
+    return pool2Connect.then((pool) => {
+        pool.request() // or: new sql.Request(pool2)
+            .query("select Id,KullaniciAd,Sifre,Email,Cevap,GuvenlikSorusu from Adminler where KullaniciAd='" + req.session.nick + "'  ", function (err, hesap) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request() // or: new sql.Request(pool2)
+                    .query("select * from guvenlikSorusu", function (err, soru) {
+                        hesap.recordset.forEach(function (kullanici) {
+                            res.render('adminhesap', { soru: soru.recordset, nickname: kullanici.KullaniciAd, password: kullanici.Sifre, Email: kullanici.Email, reply: kullanici.Cevap, hata: '', nick: req.body.ad, question: kullanici.GuvenlikSorusu, Id2: kullanici.Id });
+                        });
+                        sql.close();
+                    })
+            });
+    }).catch(err => {
+        // ... error handler
+    })
+
+}
+module.exports.AdminHesapUpdate = function (req, res) {
+
+    return pool2Connect.then((pool) => {
+        // or: new sql.Request(pool2)
+        pool.request().query("update Adminler set kullaniciAd='" + req.body.mynickname + "'  ,Email='" + req.body.Email + "', Sifre='" + req.body.mypassword + "',GuvenlikSorusu='" + req.body.Soru + "', Cevap='" + req.body.myreply + "' where KullaniciAd='" + req.session.nick + "' or KullaniciAd='" + req.body.mynickname2 + "' ", function (err, hesap) {
+            if (err) {
+                console.log(err);
+            }
+            pool.request().query("select * from Adminler where KullaniciAd='" + req.body.mynickname + "'", function (err, hesaplar) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request().query("select * from guvenlikSorusu", function (err, soru) {
+                    hesaplar.recordset.forEach(function (kullanici) {
+                        res.render('adminhesap', { soru: soru.recordset, nickname: kullanici.KullaniciAd, password: kullanici.Sifre, Email: kullanici.Email, reply: kullanici.Cevap, hata: 'Hesabınız başarıyla güncellendi', nick: req.body.ad, question: kullanici.GuvenlikSorusu, Id2: kullanici.Id });
+                    });
+                    sql.close();
+                })
+            });
+        });
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.AdminHesapSilindi = function (req, res) {
+    return pool2Connect.then((pool) => {
+        pool.request() // or: new sql.Request(pool2)
+            .query("delete from Adminler where Id=" + req.params.id + "", function (err, verisonucu) {
+                if (err) {
+                    console.log(err);
+                }
+                sql.close();
+                res.render('giris', { hata: '' });
+
+            })
+    }).catch(err => {
+        // ... error handler
+    });
+}
+
 /*
 module.exports.sil = function (req, res) {
     sql.connect(webconfig, function (err) {

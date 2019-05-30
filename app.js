@@ -42,6 +42,9 @@ app.get('/AdminOneriler', login.GetAdminOneriler);
 app.post('/AdminOneriler', login.PostAdminOneriler);
 app.get('/AdminOneriGorus', login.GetAdminOneriGorus);
 app.post('/AdminOneriGorus', login.PostAdminOneriGorus);
+app.get('/adminhesap', login.AdminHesap)
+app.post('/adminhesapupdate', login.AdminHesapUpdate);
+app.get('/adminhesap/:id', login.AdminHesapSilindi);
 /*
 app.get('/AdminOneriGorus',login.GetAdminOneriGorus);*/
 const port = process.env.PORT || 3000;
@@ -56,6 +59,7 @@ io.sockets.on('connection', (socket) => {
         socket.join(data);
         console.log('New connect ' + data)
     })
+
     socket.on('sil', (data) => {
         login.silMsg(data.nick, data.msg, data.oda);
     })
@@ -64,6 +68,9 @@ io.sockets.on('connection', (socket) => {
     })
     socket.on('sikayetEt', (data) => {
         login.sikayetEt(data);
+    })
+    socket.on('sikayetEtADD', (data) => {
+        login.sikayetEtADD(data.nick, data.msg, data.oda);
     })
 
 
