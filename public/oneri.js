@@ -1,15 +1,12 @@
 
 $(function () {
 
-    $("#icerik").height(window.innerHeight - 90 + 'px');
+    $("#icerik").height(window.innerHeight - 70 + 'px');
     $('#icerik').scrollTop($('#icerik')[0].scrollHeight);
     $(window).resize(function () {
-        $("#icerik").height(window.innerHeight - 90 + 'px');
+        $("#icerik").height(window.innerHeight - 70 + 'px');
     });
-    scrollingElement = (document.scrollingElement || document.body)
-    $(scrollingElement).animate({
-        scrollTop: document.body.scrollHeight
-    });
+   
     var socket = io.connect('/');
     socket.emit('oda', 'Genel');
 

@@ -11,7 +11,7 @@ app.use(bp.urlencoded({ extended: true }));
 app.use(session({
     secret: 'Özel-Anahtar',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 
 app.post('/giris', login.GirisYapildi);
@@ -31,6 +31,9 @@ app.get('/guney', login.getMsgGuney);
 app.get('/halic', login.getMsgHalic);
 app.get('/hesap', login.hesap);
 app.post('/hesapupdate', login.hesapupdate);
+app.get('/hesapupdate', login.Giris);
+app.get('/giris', login.Giris);
+
 
 app.get('/hesap/:id', login.HesapSilindi);
 app.get('/oneri', login.GetOneri);

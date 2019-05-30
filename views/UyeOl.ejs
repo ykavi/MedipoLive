@@ -21,7 +21,7 @@
             <div class="field">
                 <label class="label">Kullanıcı Adı</label>
                 <div class="control has-icons-left">
-                    <input class="input" id="username" name="KullaniciAd" type="text" placeholder="kavi00..">
+                    <input class="input" id="username" name="KullaniciAd" type="text" placeholder="Ayşee34..">
                     <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                     </span>
@@ -38,11 +38,22 @@
 
                 </div>
             </div>
+            <div class="field">
+                <label class="label">Şifre Tekrar</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" name="Sifre2" id="password2" type="password">
+
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+
+                </div>
+            </div>
 
             <div class="field">
                 <label class="label">E-mail</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" name="Eposta" type="email" placeholder="kavi@gmail.com">
+                    <input class="input" id="Eposta" name="Eposta" type="email" placeholder="kavi@gmail.com">
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -74,10 +85,12 @@
             <div class="field">
                 <label class="label">Cevap</label>
                 <div class="control">
-                    <input class="input" name="Cevap" type="text" placeholder="Kedi..">
+                    <input class="input" id="cevap" name="Cevap" type="text" placeholder="Kedi..">
                 </div>
             </div>
-            <label class="label has-text-danger"><%=hata%></label>
+            <label id="hata2" class="label has-text-danger"><%=hata%></label>
+            <label id="hata" class="label has-text-danger"></label>
+
             <div class="field is-grouped">
                 <div class="control">
                     <button type="submit" class="button is-link">Kaydet</button>
@@ -88,6 +101,32 @@
             </div>
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $("form").submit(function (event) {
+
+            $('#hata2').text('');
+
+            if ($.trim($('#username').val()) == "" || $('#username').val() == null || $('#username').val().length < 4) {
+                $('#hata').text('Kullanıcı Adı en az 4 karakter olmalı');
+                event.preventDefault();
+            }
+            if ($('#password').val() == null || $('#password').val().length < 4 || $('#password').val() != $('#password2').val()) {
+                $('#hata').text('Şifreler birbiriyle aynı olmalı ve En az 4 karakter içermeli');
+                event.preventDefault();
+            }
+            if ($.trim($('#cevap').val()) == "" || $('#cevap').val() == null || $('#cevap').val().length < 2) {
+                $('#hata').text('Cevap En az 2 karakter içermeli');
+                event.preventDefault();
+            }
+            if ($.trim($('#Eposta').val()) == "" || $('#Eposta').val() == null) {
+                $('#hata').text('E-mail boş geçilemez');
+                event.preventDefault();
+            }
+
+
+        });
+    </script>
 </body>
 
 </html>
