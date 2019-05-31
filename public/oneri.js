@@ -7,12 +7,6 @@ $(function () {
         $("#icerik").height(window.innerHeight - 70 + 'px');
     });
    
-    var socket = io.connect('/');
-    socket.emit('oda', 'Genel');
-
-    socket.on('onlineUser', (count) => {
-        $('#onlineUser').text(count);
-    });
     function scrollBottom() {
 
         scrollingElement = document.getElementById('icerik');
@@ -23,7 +17,12 @@ $(function () {
     }
 
 });
+var socket = io.connect('/');
+    socket.emit('oda', 'Genel');
 
+    socket.on('onlineUser', (count) => {
+        $('#onlineUser').text(count);
+    });
 
 
 var close = document.getElementsByClassName('modal-close')[0];

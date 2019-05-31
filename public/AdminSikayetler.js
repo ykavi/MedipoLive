@@ -7,23 +7,14 @@ $(function () {
         $("#icerik").height(window.innerHeight - 90 + 'px');
     });
    
-    var socket = io.connect('/');
-    socket.emit('oda', 'Genel');
+    
 
+});
+var socket = io.connect('/');
+    socket.emit('oda', 'Genel');
     socket.on('onlineUser', (count) => {
         $('#onlineUser').text(count);
     });
-    function scrollBottom() {
-
-        scrollingElement = document.getElementById('icerik');
-        $(scrollingElement).animate({
-            scrollTop: scrollingElement.scrollHeight
-        });
-
-    }
-
-});
-
 
 
 var close = document.getElementsByClassName('modal-close')[0];

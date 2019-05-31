@@ -17,7 +17,7 @@
 
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
-            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6" id=odaName> Genel</a>
+            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Admin Paneli</a>
             <div id="nick" style="display:none"><%=nick%></div>
         </nav>
 
@@ -25,18 +25,17 @@
             <div id="mySidenav" class="sidenav">
 
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    
-                <a href="/admin" id="genel">Anasayfa</a>
-               
-                <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a class="subtitle is-3">Admin Paneli</a>
+                <a href="/admin" id="genel">Üye Listesi</a>
                 <a href="/AdminSikayetler">Şikayetler</a>
                 <a href="/AdminOneriler">Öneriler</a>
                 <a href="/adminhesap">Hesap Bilgilerim</a>
                 <% kullanici.forEach(function(user){ %>
                 <a name="/adminhesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
                 <% }); %>
-        
+
                 <a href="/" id="Cikis">Çıkış</a>
+                <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
 
             </div>
 
@@ -44,8 +43,8 @@
 
         </div>
 
-      
-      
+
+
     </div>
     <div class="modal" id="modalim">
         <div class="modal-background"></div>
@@ -78,7 +77,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-    <script src="genel.js"></script>
+    <script src="AdminSikayetler.js"></script>
     <script>
         localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
 
