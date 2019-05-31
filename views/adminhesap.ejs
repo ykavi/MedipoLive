@@ -26,20 +26,19 @@
             <div id="mySidenav" class="sidenav">
 
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a class="subtitle is-3">Oda Seçimi</a>
-                <a href="/genel" id="genel">Genel</a>
-                <a href="/kuzey" id="kuzey">Kuzey</a>
-                <a href="/guney" id="guney">Güney</a>
-                <a href="/halic" id="halic">Haliç</a>
+    
+                <a href="/admin" id="genel">Anasayfa</a>
+               
                 <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
-                <a href="/adminhesap">Hesap Bilgilerim</a>
-        
-                    <a name="/adminhesap/<%=Id2%>" onclick="onay(this.name)">Hesabımı Sil</a>
-                 
                 <a href="/AdminOneriler">Öneriler</a>
+                <a href="/adminhesap">Hesap Bilgilerim</a>
+            
+                <a name="/adminhesap/<%= Id2 %>" onclick="onay(this.name)">Hesabımı Sil</a>
+        
                 <a href="/" id="Cikis">Çıkış</a>
 
             </div>
+
 
         </div>
 

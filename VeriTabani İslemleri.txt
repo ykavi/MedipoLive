@@ -50,3 +50,30 @@ return @Varmi
 end
 
 Select dbo.fn_UyeKontrol('sweetkite','dsadsa') as UyeKontrol
+
+create function fn_BanVarmi(@KullaniciAd nvarchar(50))
+returns nvarchar(20)
+as
+begin
+declare @Varmi nvarchar(20)
+declare @Sayi int
+set @Sayi = (select Count(*)
+from BanlananKullanicilar
+where KullaniciAd= @KullaniciAd)
+
+if(@Sayi>0)
+
+begin
+set @Varmi='Evet'
+end
+
+else
+begin
+set @Varmi='Hayir'
+end
+
+return @Varmi
+
+end
+
+Select dbo.fn_BanVarmi('uye21') as Sonuc

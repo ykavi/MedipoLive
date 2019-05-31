@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>Oneriler</title>
+
 </head>
 
 <body>
@@ -27,16 +28,17 @@
             <div id="mySidenav" class="sidenav">
 
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    
+
                 <a href="/admin" id="genel">Anasayfa</a>
-               
+
                 <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/AdminSikayetler">Şikayetler</a>
                 <a href="/AdminOneriler">Öneriler</a>
                 <a href="/adminhesap">Hesap Bilgilerim</a>
                 <% kullanici.forEach(function(user){ %>
                 <a name="/adminhesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
                 <% }); %>
-        
+
                 <a href="/" id="Cikis">Çıkış</a>
 
             </div>
@@ -45,35 +47,68 @@
         </div>
 
 
-        <div class="container box" style="margin-top:4%; padding: 2%">
-            <h3 class="subtitle is-3" style="margin-top:42px">Öneri ve Görüşler</h3>
-                <% Oneriler.forEach(function(Oneriler){ %>
-
+        <div class="container box" style="padding:10px; margin-top:68px; padding: 2%;">
+            <h3 class="subtitle is-4">Şikayetler</h3>
+            <div id="liste">
+                <% Sikayetler.forEach(function(Sikayet){ %>
                 <div class="list is-hoverable">
 
-                    <a class="list-item">
-
+                    <a class="list-item" style="padding:2%;">
                         <label class="label">Kullanıcı: </label>
                         <input class="input" id="username" name="kullanici" type="text"
-                            value="  <%= Oneriler.KullaniciAd %>">
-                        <label class="label">Konu:</label>
-                        <input class="input" id="username" name="konu" type="text" value=" <%= Oneriler.konu  %>">
-                        <form action="/AdminOneriler" method="POST">
-                            <input class="input" id="username" name="no" type="text" value="<%= Oneriler.Id  %>"
-                                style="display:none">
+                            value="  <%= Sikayet.KullaniciAd %>">
+                        <label class="label">Oda Adı:</label>
+                        <input class="input" id="username" name="konu" type="text" value=" <%= Sikayet.odaAdi  %>">
+                        <form action="/AdminSikayetler" method="POST">
+                            <input class="input" type="text" name="sikayetNo" value=" <%= Sikayet.userId  %>">
 
 
-                            <button type="submit" class="button is-link" style="margin:15px;"
-                                onclick="Goster()">Göster</button>
+                            <label class="label" style="margin:5px 0px 5px 0px;">Mesaj:</label>
+                            <textarea class="textarea is-info" style="resize: none;"
+                                name="oneri"><%= Sikayet.msg  %></textarea>
+
+
+
+
+                            <button type="submit" class="button is-danger"
+                                style="margin-top:10px;margin-left:15px">Kullanıcıyı Banla</button>
 
                         </form>
-
-
                     </a>
 
                 </div>
+
+                <% }); %>
+                <% Sikayetler2.forEach(function(Sikayet){ %>
+                <div class="list is-hoverable">
+
+                    <a class="list-item" style="padding:2%;">
+                        <label class="label">Kullanıcı: </label>
+                        <input class="input" id="username" name="kullanici" type="text" value="  <%= Sikayet.nick %>">
+                        <label class="label">Oda Adı:</label>
+                        <input class="input" id="username" name="konu" type="text" value=" <%= Sikayet.odaAdi  %>">
+                        <form action="/AdminSikayetler" method="POST">
+                            <input class="input" type="text" name="sikayetNo" value=" <%= Sikayet.Id  %>">
+
+
+                            <label class="label" style="margin:5px 0px 5px 0px;">Mesaj:</label>
+                            <textarea class="textarea is-info" style="resize: none;"
+                                name="oneri"><%= Sikayet.mesaj  %></textarea>
+
+
+
+
+                            <button type="submit" class="button is-danger"
+                                style="margin-top:10px;margin-left:15px">Kullanıcıyı Banla</button>
+
+                        </form>
+                    </a>
+
+                </div>
+
                 <% }); %>
             </div>
+        </div>
 
 
 
@@ -97,7 +132,7 @@
                 </header>
                 <div class="card-content">
                     <div class="content">
-                        <p class="title is-5">Geri dönüşü olmamak üzere hesabınızı silme işlemini onaylıyor musunuz ?
+                        <p class="title is-5">Geri dönüşü olmamak üzere kullanıcıyı banlama işlemini onaylıyor musunuz ?
                         </p>
                         <br>
                     </div>
@@ -113,12 +148,16 @@
     </div>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-    <script src="oneri.js"></script>
-    <script src="dbOperations.js"></script>
-    <script>
-        localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
+    <script src="AdminSikayetler.js"></script>
 
-    </script>
 </body>
+<script>
+    localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
+    function Goster() {
+
+        document.getElementById('liste').style.display = 'none';
+    }
+
+</script>
 
 </html>
