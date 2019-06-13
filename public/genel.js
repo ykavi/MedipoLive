@@ -53,7 +53,9 @@ $(function () {
     });
     socket.on('onlineUser', (count) => {
         $('#onlineUser').text(count);
+        socket.emit('onlineList', ($('#nick').text()));
     });
+   
     //$("h6").click(function (e) {
     //$('label').toggle();//Toggle gizliyse gosterir açıksa kapatır
     //$("label[id*='" + e.target.id + "']").toggle();

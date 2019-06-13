@@ -14,6 +14,7 @@ var socket = io.connect('/');
     socket.emit('oda', 'Genel');
     socket.on('onlineUser', (count) => {
         $('#onlineUser').text(count);
+        socket.emit('onlineList', ($('#nick').text()));
     });
 
 

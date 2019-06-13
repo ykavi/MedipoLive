@@ -6,7 +6,7 @@ $(function () {
     $(window).resize(function () {
         $("#icerik").height(window.innerHeight - 70 + 'px');
     });
-   
+
     function scrollBottom() {
 
         scrollingElement = document.getElementById('icerik');
@@ -15,15 +15,15 @@ $(function () {
         });
 
     }
-
 });
 var socket = io.connect('/');
-    socket.emit('oda', 'Genel');
+socket.emit('oda', 'Genel');
 
-    socket.on('onlineUser', (count) => {
-        $('#onlineUser').text(count);
-    });
-
+socket.on('onlineUser', (count) => {
+    console.log(count)
+    $('#onlineUser').text(count);
+    socket.emit('onlineList', ($('#nick').text()));
+});
 
 var close = document.getElementsByClassName('modal-close')[0];
 close.onclick = function () {

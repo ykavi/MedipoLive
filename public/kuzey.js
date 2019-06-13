@@ -50,6 +50,7 @@ $(function () {
     });
     socket.on('onlineUser', (count) => {
         $('#onlineUser').text(count);
+        socket.emit('onlineList', ($('#nick').text()));
     });
 
 

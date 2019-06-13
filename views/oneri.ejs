@@ -20,6 +20,7 @@
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
             <a class="subtitle is-4">MpChat</a>
+            <div id="nick" style="display:none"></div>
         </nav>
 
         <div class="columns level-left">
@@ -32,7 +33,7 @@
                 <a href="/kuzey" id="kuzey">Kuzey</a>
                 <a href="/guney" id="guney">Güney</a>
                 <a href="/halic" id="halic">Haliç</a>
-                <a style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/onlineList" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
                 <a href="/hesap">Hesap Bilgilerim</a>
                 <% kullanici.forEach(function(user){ %>
                     <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
@@ -112,8 +113,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
     <script src="oneri.js"></script>
     <script>
-        localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
-
+        document.getElementById('nick').innerHTML = localStorage.getItem('Ad')
     </script>
 </body>
 
