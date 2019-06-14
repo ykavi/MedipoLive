@@ -51,6 +51,7 @@ app.get('/adminhesap/:id', login.AdminHesapSilindi);
 app.get('/AdminSikayetler', login.GetAdminSikayetler);
 app.post('/AdminSikayetler', login.AdminSikayetBan);
 app.get('/onlineList',login.onlineListele);
+app.get('/onlineListAdmin',login.onlineListeleAdmin);
 /*
 app.get('/AdminOneriGorus',login.GetAdminOneriGorus);*/
 const port = process.env.PORT || 3000;
@@ -86,7 +87,6 @@ io.sockets.on('connection', (socket) => {
     socket.on('onlineList', (data) => {
         login.onlineList(data)
         session.nick = data; 
-        console.log(data)
     });
 
 

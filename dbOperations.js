@@ -715,6 +715,30 @@ module.exports.onlineListele = function (req, res) {
         // ... error handler
     })
 }
+module.exports.onlineListeleAdmin = function (req, res) {
+    if (req.session.sheld == null) {
+        res.render('giris', { hata: 'Lütfen Önce Giriş Yapınız..' });
+    }
+    return pool2Connect.then((pool) => {
+        // or: new sql.Request(pool2)
+        pool.request() // or: new sql.Request(pool2)
+            .query("select * from Kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+                if (err) {
+                    console.log(err);
+                }
+                pool.request() // or: new sql.Request(pool2)
+                    .query("select * from onlinelist", function (err, onlinelist) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        sql.close();
+                        res.render('onlineListAdmin', { nick: req.session.nick, kullanici: kullanicilar.recordset, hata: '', onlinelist: onlinelist.recordset, kod: '' });
+                    });
+            });
+    }).catch(err => {
+        // ... error handler
+    })
+}
 module.exports.sikayetEtADD = function (nick, msg, odaAdi, req, res) {
     return pool2Connect.then((pool) => {
 

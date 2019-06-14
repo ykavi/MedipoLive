@@ -6,16 +6,16 @@ $(function () {
     $(window).resize(function () {
         $("#icerik").height(window.innerHeight - 90 + 'px');
     });
-   
-    
+
+
 
 });
 var socket = io.connect('/');
-    socket.emit('oda', 'Genel');
-    socket.on('onlineUser', (count) => {
-        $('#onlineUser').text(count);
-        socket.emit('onlineList', ($('#nick').text()));
-    });
+socket.emit('oda', 'Genel');
+socket.on('onlineUser', (count) => {
+    $('#onlineUser').text(count);
+    socket.emit('onlineList', ($('#nick').text()));
+});
 
 
 var close = document.getElementsByClassName('modal-close')[0];

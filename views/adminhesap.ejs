@@ -18,7 +18,8 @@
 
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
-            <a class="subtitle is-4">MpChat</a><a class="subtitle is-6"> Genel</a>
+            <a class="subtitle is-4">MpChat</a>
+            <div id="nick" style="display:none"></div>
         </nav>
 
         <div class="columns level-left">
@@ -34,7 +35,7 @@
                 <a name="/adminhesap/<%=Id2 %>" onclick="onay(this.name)">Hesabımı Sil</a>
         
                 <a href="/" id="Cikis">Çıkış</a>
-                <a href="/onlineList" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/onlineListAdmin" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
             </div>
 
 
@@ -144,7 +145,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
     <script src="hesap.js"></script>
     <script>
-       // localStorage.setItem('Ad', document.getElementById('nick').innerHTML)
+      document.getElementById('nick').innerHTML = localStorage.getItem('Ad')
 
     </script>
 </body>
