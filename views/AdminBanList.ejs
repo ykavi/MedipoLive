@@ -54,14 +54,14 @@
                 (<%= Sayi.BanlananSayisi %>)
                 <% }); %>
             </h3>
-            <h4 class="subtitle is-4" style="margin-top:30px;color:red;font-size:500"><%=hata%></h4>
+            <h4 class="subtitle is-5" style="margin-top:30px;color:red;font-size:450"><%=hata%></h4>
             <div id="liste">
                 <% kullanicilar.forEach(function(Ad){ %>
                 <div class="list is-hoverable">
                     <a class="list-item">
                         <form action="/AdminBanList" method="POST">
                             <label class="label">Kullanıcı: </label>
-                            <input class="input" id="username" name="kullaniciAd" type="text"
+                            <input class="input" id="username" readonly=""  name="kullaniciAd" type="text"
                                 value="<%= Ad.KullaniciAd %>">
                             <label class="label" style="display:none">Şifre</label>
                             <input class="input" id="username" name="Sifre" type="text" value="<%= Ad.Sifre %>"

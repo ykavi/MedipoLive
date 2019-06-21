@@ -64,18 +64,18 @@
 
                     <a class="list-item" style="padding:2%;">
                         <label class="label">Kullanıcı: </label>
-                        <input class="input" id="username" name="kullanici" type="text"
+                        <input class="input" id="username" readonly=""  name="kullanici" type="text"
                             value="  <%= Sikayet.KullaniciAd %>">
                         <label class="label">Oda Adı:</label>
-                        <input class="input" id="username" name="konu" type="text" value="<%= Sikayet.odaAdi  %>">
+                        <input class="input" id="username" name="konu" type="text" readonly=""  value="<%= Sikayet.odaAdi  %>">
                         <form action="/AdminSikayetler" method="POST">
-                            <input class="input" type="text" name="userNo" value="<%= Sikayet.userId  %>"
+                            <input class="input" type="text" name="userNo" readonly="" value="<%= Sikayet.userId  %>"
                                 style="display:none">
-                            <input class="input" type="text" name="sikayetNo2" value="<%= Sikayet.sikayetId  %>">
+                            <input class="input" type="text" readonly=""  name="sikayetNo2" value="<%= Sikayet.sikayetId  %>">
 
 
                             <label class="label" style="margin:5px 0px 5px 0px;">Mesaj:</label>
-                            <textarea class="textarea is-info" style="resize: none;"
+                            <textarea readonly=""  class="textarea is-info" style="resize: none;"
                                 name="oneri"><%= Sikayet.msg  %></textarea>
 
 

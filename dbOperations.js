@@ -789,7 +789,7 @@ module.exports.onlineListeleAdmin = function (req, res) {
     return pool2Connect.then((pool) => {
         // or: new sql.Request(pool2)
         pool.request() // or: new sql.Request(pool2)
-            .query("select * from Kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
+            .query("select * from Adminler where KullaniciAd='"+ req.session.nick + "'", function (err, kullanicilar) {
                 if (err) {
                     console.log(err);
                 }

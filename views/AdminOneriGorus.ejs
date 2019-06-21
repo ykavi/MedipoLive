@@ -57,14 +57,14 @@
 
                             <a class="list-item" style="padding:2%;">
                                     <label class="label">Kullanıcı: </label>
-                                    <input class="input" id="username" name="kullanici" type="text"
+                                    <input class="input" readonly=""  id="username" name="kullanici" type="text"
                                         value="  <%= Oneriler.KullaniciAd %>">
                                     <label class="label">Konu:</label>
-                                    <input class="input" id="username" name="konu" type="text" value=" <%= Oneriler.konu  %>">
+                                    <input class="input" readonly="" id="username" name="konu" type="text" value=" <%= Oneriler.konu  %>">
                                     <form action="/AdminOneriGorus" method="POST">
                                     <input class="input" id="username" name="no" type="text" value="<%=no%>"  style="display:none">
                                     <label class="label" style="margin:5px 0px 5px 0px;">İleti</label>
-                                        <textarea class="textarea is-info"  style="resize: none;" name="oneri"><%= Oneriler.msg  %></textarea>
+                                        <textarea class="textarea is-info" readonly=""   style="resize: none;" name="oneri"><%= Oneriler.msg  %></textarea>
                                       
                              
                                         <a class="button is-info" href="/AdminOneriler" style="margin:15px;float:left">Önerilere Dön</a>

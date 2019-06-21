@@ -45,7 +45,7 @@
 
 
         <div class="container box" style="margin-top:4%; padding: 2%">
-            <h3 class="subtitle is-3" style="margin-top:42px">Öneri ve Görüşler
+            <h3 class="subtitle is-4" style="margin-top:42px">Öneri ve Görüşler
                     <%  OnerilerSayisi.forEach(function(Sayi){ %> 
                         (<%= Sayi.OneriSayisi %>)
                         <% }); %>
@@ -59,10 +59,10 @@
                     <a class="list-item">
 
                         <label class="label">Kullanıcı: </label>
-                        <input class="input" id="username" name="kullanici" type="text"
+                        <input class="input" readonly="" id="username" name="kullanici" type="text"
                             value="  <%= Oneriler.KullaniciAd %>">
                         <label class="label">Konu:</label>
-                        <input class="input" id="username" name="konu" type="text" value=" <%= Oneriler.konu  %>">
+                        <input class="input" id="username" readonly="" name="konu" type="text" value=" <%= Oneriler.konu  %>">
                         <form action="/AdminOneriler" method="POST">
                             <input class="input" id="username" name="no" type="text" value="<%= Oneriler.Id  %>"
                                 style="display:none">
