@@ -101,7 +101,7 @@ io.sockets.on('connection', (socket) => {
     socket.on('disconnect', function () {
         console.log('Kullanıcı Ayrıldı')
         let count = Object.keys(io.sockets.connected).length
-        io.emit('onlineUser', (count));
+        //io.emit('onlineUser', (count)); *****
         login.onlineListDEL(session.nick);
     });
 
