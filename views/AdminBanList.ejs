@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>Oneriler</title>
+</head>
+
+<body>
+    
+    <div id="ana">
+
+
+        <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
+            <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
+            <a class="subtitle is-4">MpChat</a>
+            <div id="nick" style="display:none"></div>
+        </nav>
+
+        <div class="columns level-left">
+
+                <div id="mySidenav" class="sidenav">
+
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <a href="/admin" class="subtitle is-3">Admin Paneli</a>
+                        <a  href="/AdminUyeList" >Üye Listesi</a>
+                        <a  href="/AdminBanList" >Banlanan Kullanıcılar</a>
+                        <a href="/AdminSikayetler">Şikayetler</a>
+                        <a href="/AdminOneriler">Öneriler</a>
+                        <a href="/adminhesap">Hesap Bilgilerim</a>
+                        <%  Adminkullanici.forEach(function(user){ %>
+                        <a name="/adminhesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
+                        <% }); %>
+        
+                        <a href="/" id="Cikis">Çıkış</a>
+                        <a href="/onlineListAdmin" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+        
+                    </div>
+        
+
+        </div>
+
+            <div class="icerik" id="icerik">
+             
+        <div class="container box" style="margin-top:4%; padding: 2%">
+                <h3 class="subtitle is-3" style="margin-top:30px">Banlanan Kullanıcılar
+                        <%  BanSayisi.forEach(function(Sayi){ %> 
+                            (<%= Sayi.BanlananSayisi %>)
+                            <% }); %>
+                
+                
+                </h3>
+         <h4 class="subtitle is-4" style="margin-top:30px;color:red;font-size:500"><%=hata%></h4>
+             
+                    <% kullanicilar.forEach(function(Ad){ %>
+    
+                    <div class="list is-hoverable">
+    
+                        <a class="list-item">
+    
+                     
+                           
+                            <form action="/AdminBanList" method="POST">
+                                <label class="label">Kullanıcı: </label>
+                                    <input class="input" id="username" name="kullaniciAd" type="text"
+                                        value="<%= Ad.KullaniciAd %>">
+                                    <label class="label" style="display:none">Şifre</label>
+                                    <input class="input" id="username" name="Sifre" type="text" value="<%= Ad.Sifre %>" style="display:none">
+                                    <label class="label" style="display:none">E-Posta</label>
+                                    <input class="input" id="username" name="Email" type="text" value="<%= Ad.Email %>" style="display:none">
+                                    <label class="label" name="GuvenlikSorusu" style="display:none">Güvenlik Sorusu</label>
+                                    <div class="select" style="display:none">
+                                        <select name="Soru" style="display:none">
+                
+                                            <% if(Ad.GuvenlikSorusu===soru[1].GuvenlikSorusu) { %>
+                                            <option>
+                                                En sevdiğiniz hayvan?
+                                            </option>
+                                            <option selected>
+                                                En sevdiğiniz renk?
+                                            </option>
+                                            <option>
+                                                En yakın arkadaşınızın adı nedir?
+                                            </option>
+                                            <% } else if (Ad.GuvenlikSorusu===soru[0].GuvenlikSorusu) { %>
+                                            <option selected>
+                                                En sevdiğiniz hayvan?
+                                            </option>
+                                            <option>
+                                                En sevdiğiniz renk?
+                                            </option>
+                                            <option>
+                                                En yakın arkadaşınızın adı nedir?
+                                            </option>
+                                            <% } else { %>
+                                            <option>
+                                                En sevdiğiniz hayvan?
+                                            </option>
+                                            <option>
+                                                En sevdiğiniz renk?
+                                            </option>
+                                            <option selected>
+                                                En yakın arkadaşınızın adı nedir?
+                                            </option>
+                                            <% } %>
+                
+                
+                                        </select>
+                                    </div>
+                                    <label class="label" style="display:none">Cevap</label>
+                                    <input class="input" id="username" name="Cevap" type="text" value="<%=Ad.Cevap%>" style="display:none">
+                                    <input class="input"  name="BanNo" type="text" value="<%=Ad.Id%>" style="display:none">
+                                <button type="submit" class="button is-link" style="margin:15px;" 
+                                    onclick="Goster()">Banı Kaldır</button>
+                                </form>
+                           
+    
+                        </a>
+    
+                    </div>
+                    <% }); %>
+                </div>
+            
+    
+    
+
+
+            </div>
+      
+
+    </div>
+
+
+    </div>
+
+    <div class="modal" id="modalim">
+        <div class="modal-background"></div>
+        <div class="uyari">
+            <div class="card">
+                <header class="card-header ">
+                    <p class="card-header-title is-centered is-size-4	">
+                        Onay
+                    </p>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                        </span>
+                    </a>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        <p class="title is-5">Geri dönüşü olmamak üzere hesabınızı silme işlemini onaylıyor musunuz ?
+                        </p>
+                        <br>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a id="onayButton" class="card-footer-item">Onayla</a>
+
+                    <a id="vazgec" class="card-footer-item">Vazgeç</a>
+                </footer>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+    <script src="oneri.js"></script>
+    <script>
+        document.getElementById('nick').innerHTML = localStorage.getItem('Ad')
+    </script>
+</body>
+
+</html>

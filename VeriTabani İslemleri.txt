@@ -77,3 +77,101 @@ return @Varmi
 end
 
 Select dbo.fn_BanVarmi('uye21') as Sonuc
+create function fn_BanSayisi()
+returns nvarchar(20)
+as
+begin
+declare @Varmi nvarchar(20)
+declare @Sayi int
+set @Sayi = (select COUNT(*)  as BanlananSayisi from BanlananKullanicilar)
+
+if(@Sayi>0)
+
+begin
+set @Varmi='Evet'
+end
+
+else
+begin
+set @Varmi='Hayir'
+end
+
+return @Varmi
+
+end
+Select dbo.fn_BanSayisi() as Sonuc
+create function fn_OneriSayisi()
+returns nvarchar(20)
+as
+begin
+declare @Varmi nvarchar(20)
+declare @Sayi int
+set @Sayi = (select COUNT(*) as OneriSayisi from Oneriler)
+
+if(@Sayi>0)
+
+begin
+set @Varmi='Evet'
+end
+
+else
+begin
+set @Varmi='Hayir'
+end
+
+return @Varmi
+
+end
+
+
+Select dbo.fn_OneriSayisi() as Sonuc
+
+create function fn_SikayetSayisi()
+returns nvarchar(20)
+as
+begin
+declare @Varmi nvarchar(20)
+declare @Sayi int
+set @Sayi = (select COUNT(*) from sikayetMsj)
+
+if(@Sayi>0)
+
+begin
+set @Varmi='Evet'
+end
+
+else
+begin
+set @Varmi='Hayir'
+end
+
+return @Varmi
+
+end
+
+Select dbo.fn_SikayetSayisi() as Sonuc
+
+create function fn_UyeSayisi()
+returns nvarchar(20)
+as
+begin
+declare @Varmi nvarchar(20)
+declare @Sayi int
+set @Sayi = (select COUNT(*) as KullaniciSayisi from kullanici)
+
+if(@Sayi>0)
+
+begin
+set @Varmi='Evet'
+end
+
+else
+begin
+set @Varmi='Hayir'
+end
+
+return @Varmi
+
+end
+
+Select dbo.fn_UyeSayisi() as Sonuc

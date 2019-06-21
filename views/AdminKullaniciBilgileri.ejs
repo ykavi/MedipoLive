@@ -15,7 +15,7 @@
 <body>
     
     <div id="ana">
-
+   
 
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
@@ -34,7 +34,7 @@
                         <a href="/AdminSikayetler">Şikayetler</a>
                         <a href="/AdminOneriler">Öneriler</a>
                         <a href="/adminhesap">Hesap Bilgilerim</a>
-                        <% kullanici.forEach(function(user){ %>
+                        <%  Adminkullanici.forEach(function(user){ %>
                         <a name="/adminhesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
                         <% }); %>
         
@@ -44,38 +44,81 @@
                     </div>
         
 
-
         </div>
 
       
             <div class="icerik" id="icerik">
                 <div class="container box" style="padding:10px; margin-top:20px; padding: 2%;">
-                    <h3 class="subtitle is-4">Öneri ve Görüşler</h3>
+                    <h3 class="subtitle is-4">Kullanıcı Hesap Bilgileri</h3>
                     <div id="liste">
-                    <% Oneriler.forEach(function(Oneriler){ %>
+                    <% kullanicilar.forEach(function(Ad){ %>
                     <div class="list is-hoverable",>
 
                             <a class="list-item" style="padding:2%;">
                                     <label class="label">Kullanıcı: </label>
-                                    <input class="input" id="username" name="kullanici" type="text"
-                                        value="  <%= Oneriler.KullaniciAd %>">
-                                    <label class="label">Konu:</label>
-                                    <input class="input" id="username" name="konu" type="text" value=" <%= Oneriler.konu  %>">
-                                    <form action="/AdminOneriGorus" method="POST">
-                                    <input class="input" id="username" name="no" type="text" value="<%=no%>"  style="display:none">
-                                    <label class="label" style="margin:5px 0px 5px 0px;">İleti</label>
-                                        <textarea class="textarea is-info"  style="resize: none;" name="oneri"><%= Oneriler.msg  %></textarea>
-                                      
-                             
-                                        <a class="button is-info" href="/AdminOneriler" style="margin:15px;float:left">Önerilere Dön</a>
-                                      
-                                        <button type="submit" class="button is-danger" style="margin:15px;">Sil</button>
+                                    <input class="input" id="username" name="kullaniciAd" type="text"
+                                        value="  <%= Ad.KullaniciAd %>">
+                                    <label class="label">Şifre</label>
+                                    <input class="input" id="username" name="Sifre" type="text" value=" <%= Ad.Sifre %>">
+                                    <label class="label">E-Posta</label>
+                                    <input class="input" id="username" name="Email" type="text" value=" <%= Ad.Email %>">
+                                    <label class="label" name="GuvenlikSorusu">Güvenlik Sorusu</label>
+                                    <div class="select">
+                                        <select name="Soru">
+                
+                                            <% if(Ad.GuvenlikSorusu===soru[1].GuvenlikSorusu) { %>
+                                            <option>
+                                                En sevdiğiniz hayvan?
+                                            </option>
+                                            <option selected>
+                                                En sevdiğiniz renk?
+                                            </option>
+                                            <option>
+                                                En yakın arkadaşınızın adı nedir?
+                                            </option>
+                                            <% } else if (Ad.GuvenlikSorusu===soru[0].GuvenlikSorusu) { %>
+                                            <option selected>
+                                                En sevdiğiniz hayvan?
+                                            </option>
+                                            <option>
+                                                En sevdiğiniz renk?
+                                            </option>
+                                            <option>
+                                                En yakın arkadaşınızın adı nedir?
+                                            </option>
+                                            <% } else { %>
+                                            <option>
+                                                En sevdiğiniz hayvan?
+                                            </option>
+                                            <option>
+                                                En sevdiğiniz renk?
+                                            </option>
+                                            <option selected>
+                                                En yakın arkadaşınızın adı nedir?
+                                            </option>
+                                            <% } %>
+                
+                
+                                        </select>
+                                    </div>
+                                    <label class="label">Cevap</label>
+                                    <input class="input" id="username" name="Cevap" type="text" value="<%=Ad.Cevap%>">
+
+
+                                 
+                                 
+                        
+                                        <a class="button is-info" href="/AdminUyeList" style="margin:15px;float:left">Üye Listesine Dön</a>
+                                        <form action="/AdminKullaniciBilgileri" method="POST">
+                                            <input class="input"  name="BanNo" type="text" value="<%=Ad.Id%>" style="display:none">
+                                            
+                                        <button type="submit" class="button is-danger" style="margin:15px;">Banla</button>
                                         </form>
         
                                   </a>
-                                
+                                <% }); %> 
                         </div>
-                        <% }); %>
+                       
                     </div>
                 </div>
 

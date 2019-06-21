@@ -1,6 +1,9 @@
 body,html{
     overflow:hidden;
 } 
+#ana {
+    padding: 1px;
+}
  #footer {
             position: fixed;
             left: 0;

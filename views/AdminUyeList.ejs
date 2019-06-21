@@ -22,21 +22,25 @@
             <a class="subtitle is-4">MpChat</a>
             <div id="nick" style="display:none"></div>
         </nav>
-        <div id="mySidenav" class="sidenav">
+
+        <div class="columns level-left">
+
+            <div id="mySidenav" class="sidenav">
 
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <a href="/admin" class="subtitle is-3">Admin Paneli</a>
-                <a  href="/AdminUyeList" >Üye Listesi</a>
-                <a  href="/AdminBanList" >Banlanan Kullanıcılar</a>
+                <a href="/AdminUyeList">Üye Listesi</a>
+                <a href="/AdminBanList">Banlanan Kullanıcılar</a>
                 <a href="/AdminSikayetler">Şikayetler</a>
                 <a href="/AdminOneriler">Öneriler</a>
                 <a href="/adminhesap">Hesap Bilgilerim</a>
-                <% kullanici.forEach(function(user){ %>
+                <%  Adminkullanici.forEach(function(user){ %>
                 <a name="/adminhesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
                 <% }); %>
 
                 <a href="/" id="Cikis">Çıkış</a>
-                <a href="/onlineListAdmin" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/onlineListAdmin" style="float: right;" class="subtitle is-5">Aktif : <span
+                        id="onlineUser"></span></a><br>
 
             </div>
 
@@ -45,31 +49,30 @@
 
 
         <div class="container box" style="margin-top:4%; padding: 2%">
-            <h3 class="subtitle is-3" style="margin-top:42px">Öneri ve Görüşler
-                    <%  OnerilerSayisi.forEach(function(Sayi){ %> 
-                        (<%= Sayi.OneriSayisi %>)
-                        <% }); %>
-            
+            <h3 class="subtitle is-4" style="margin-top:42px">Üye Listesi
+                <% Kullanici.forEach(function(Sayi){ %>
+                (<%= Sayi.KullaniciSayisi  %>)
+                <% });  %>
             </h3>
-            <h4 class="subtitle is-4" style="margin-top:30px;color:red;font-size:500"><%=hata%></h4>
-                <% Oneriler.forEach(function(Oneriler){ %>
+            <h4 class="subtitle is-5" style="margin-top:30px;color:red;font-size:500"><%=hata%></h4>
+            <div id="liste">
+
+                <% kullanicilar.forEach(function(Ad){ %>
 
                 <div class="list is-hoverable">
 
                     <a class="list-item">
 
                         <label class="label">Kullanıcı: </label>
-                        <input class="input" id="username" name="kullanici" type="text"
-                            value="  <%= Oneriler.KullaniciAd %>">
-                        <label class="label">Konu:</label>
-                        <input class="input" id="username" name="konu" type="text" value=" <%= Oneriler.konu  %>">
-                        <form action="/AdminOneriler" method="POST">
-                            <input class="input" id="username" name="no" type="text" value="<%= Oneriler.Id  %>"
-                                style="display:none">
+                        <input class="input" id="username" name="kullanici" type="text" value=" <%= Ad.KullaniciAd  %>">
+
+                        <form action="/AdminUyeList" method="POST">
+                            <input class="input" id="username" name="no" type="text" value=" <%= Ad.Id  %>"
+                                style="display: none">
 
 
-                            <button type="submit" class="button is-link" style="margin:15px;"
-                                onclick="Goster()">Göster</button>
+                            <button type="submit" class="button is-link" style="margin:15px;" onclick="Goster()">Hesap
+                                Bilgileri</button>
 
                         </form>
 
@@ -79,6 +82,9 @@
                 </div>
                 <% }); %>
             </div>
+        </div>
+
+
 
 
 
@@ -118,11 +124,9 @@
     </div>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-    <script src="oneri.js"></script>
-    <script src="dbOperations.js"></script>
+    <script src="AdminSikayetler.js"></script>
     <script>
         document.getElementById('nick').innerHTML = localStorage.getItem('Ad')
-
     </script>
 </body>
 

@@ -29,26 +29,35 @@
             <div id="mySidenav" class="sidenav">
 
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a class="subtitle is-3">Admin Paneli</a>
-                <a href="/admin" id="genel">Üye Listesi</a>
+                <a href="/admin" class="subtitle is-3">Admin Paneli</a>
+                <a href="/AdminUyeList">Üye Listesi</a>
+                <a href="/AdminBanList">Banlanan Kullanıcılar</a>
                 <a href="/AdminSikayetler">Şikayetler</a>
                 <a href="/AdminOneriler">Öneriler</a>
                 <a href="/adminhesap">Hesap Bilgilerim</a>
                 <% kullanici.forEach(function(user){ %>
                 <a name="/adminhesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
                 <% }); %>
-        
+
                 <a href="/" id="Cikis">Çıkış</a>
-                <a href="/onlineListAdmin" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/onlineListAdmin" style="float: right;" class="subtitle is-5">Aktif : <span
+                        id="onlineUser"></span></a><br>
 
             </div>
+
 
 
         </div>
 
 
         <div class="container box" style="padding:10px; margin-top:68px; padding: 2%;">
-            <h3 class="subtitle is-4">Şikayetler</h3>
+            <h3 class="subtitle is-4">Şikayetler
+                <% SikayetSayisi.forEach(function(Sayi){ %>
+                (<%= Sayi.SikayetSayisi  %>)
+                <% }); %>
+            </h3>
+            <h4 class="subtitle is-4" style="margin-top:30px;color:red;font-size:500"><%=hata%></h4>
+
             <div id="liste">
                 <% Sikayetler.forEach(function(Sikayet){ %>
                 <div class="list is-hoverable">
@@ -58,9 +67,11 @@
                         <input class="input" id="username" name="kullanici" type="text"
                             value="  <%= Sikayet.KullaniciAd %>">
                         <label class="label">Oda Adı:</label>
-                        <input class="input" id="username" name="konu" type="text" value=" <%= Sikayet.odaAdi  %>">
+                        <input class="input" id="username" name="konu" type="text" value="<%= Sikayet.odaAdi  %>">
                         <form action="/AdminSikayetler" method="POST">
-                            <input class="input" type="text" name="sikayetNo" value=" <%= Sikayet.userId  %>">
+                            <input class="input" type="text" name="userNo" value="<%= Sikayet.userId  %>"
+                                style="display:none">
+                            <input class="input" type="text" name="sikayetNo2" value="<%= Sikayet.sikayetId  %>">
 
 
                             <label class="label" style="margin:5px 0px 5px 0px;">Mesaj:</label>
@@ -71,9 +82,17 @@
 
 
                             <button type="submit" class="button is-danger"
-                                style="margin-top:10px;margin-left:15px">Kullanıcıyı Banla</button>
+                                style="margin-top:20px;margin-left:15px;float:left">Kullanıcıyı Banla</button>
 
                         </form>
+                        <form action="/AdminSikayetlerSil" method="POST">
+                            <input class="input" type="text" name="sikayetNo2" value="<%= Sikayet.sikayetId  %>"
+                                style="display:none">
+
+                            <button type="submit" class="button is-link"
+                                style="margin-top:20px;margin-left:15px">Şikayeti Sil</button>
+                        </form>
+
                     </a>
 
                 </div>
