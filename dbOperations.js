@@ -748,7 +748,7 @@ module.exports.onlineListDEL = function (nick, req, res) {
     return pool2Connect.then((pool) => {
 
         pool.request() // or: new sql.Request(pool2)
-            .query("delete onlineList where nick ='" + nick + "' ", function (err, data) {
+            .query("delete onlineList ", function (err, data) {
                 if (err) {
                     console.log(err);
                 }

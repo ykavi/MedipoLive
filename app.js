@@ -51,14 +51,14 @@ app.get('/adminhesap/:id', login.AdminHesapSilindi);
 app.get('/AdminSikayetler', login.GetAdminSikayetler);
 app.post('/AdminSikayetler', login.AdminSikayetBan);
 app.post('/AdminSikayetlerSil', login.AdminSikayetSil);
-app.get('/onlineList',login.onlineListele);
-app.get('/onlineListAdmin',login.onlineListeleAdmin);
-app.get('/AdminUyeList',login.GetUyeListele);
-app.post('/AdminUyeList',login.PostUyeListele);
+app.get('/onlineList', login.onlineListele);
+app.get('/onlineListAdmin', login.onlineListeleAdmin);
+app.get('/AdminUyeList', login.GetUyeListele);
+app.post('/AdminUyeList', login.PostUyeListele);
 app.get('/AdminKullaniciBilgileri', login.GetAdminKullaniciBilgileri);
 app.post('/AdminKullaniciBilgileri', login.AdminUyeBan);
-app.get('/AdminBanList',login.GetBanListele);
-app.post('/AdminBanList',login.PostBanListele);
+app.get('/AdminBanList', login.GetBanListele);
+app.post('/AdminBanList', login.PostBanListele);
 app.post('/AdminMesajlariSil', login.PostAdminMesajlariSil);
 /*
 app.get('/AdminOneriGorus',login.GetAdminOneriGorus);*/
@@ -94,18 +94,20 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('onlineList', (data) => {
         login.onlineList(data)
-        session.nick = data; 
+       // session.nick = data;
     });
 
+    socket.on('onlineListDEL', (nick) => {
+        login.onlineListDEL(nick);
+    });
 
     socket.on('disconnect', function () {
         console.log('Kullanıcı Ayrıldı')
-        let count = Object.keys(io.sockets.connected).length
+        //let count = Object.keys(io.sockets.connected).length
         //io.emit('onlineUser', (count)); *****
-        login.onlineListDEL(session.nick);
     });
 
-   
+
 
 
 

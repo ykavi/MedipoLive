@@ -10,7 +10,7 @@ $(function () {
     $(scrollingElement).animate({
         scrollTop: document.body.scrollHeight
     });
-    
+
     function scrollBottom() {
 
         scrollingElement = document.getElementById('icerik');
@@ -22,12 +22,24 @@ $(function () {
 
 });
 var socket = io.connect('/');
-    socket.emit('oda', 'Genel');
+var ekle = setInterval(function () {
+    socket.emit('onlineList', ($('#nick').text()));
+}, 1000);
+setInterval(function () {
+    socket.emit('onlineListDEL', ($('#nick').text()));
+    ekle();
+}, 20000);
+socket.emit('oda', 'Genel');
 
-    socket.on('onlineUser', (count) => {
-        $('#onlineUser').text(count);
-        socket.emit('onlineList', ($('#nick').text()));
+socket.on('onlineUser', (count) => {
+    $('#onlineUser').text(count);
+    socket.emit('onlineList', ($('#nick').text()));
+});
+jQuery(function(){
+    jQuery(window).bind('beforeunload', function () {
+    socket.emit('onlineListDEL',($('#nick').text()));
     });
+});
 
 
 var close = document.getElementsByClassName('modal-close')[0];

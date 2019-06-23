@@ -11,11 +11,23 @@ $(function () {
         scrollTop: document.body.scrollHeight
     });
     var socket = io.connect('/');
+    var ekle = setInterval(function () {
+        socket.emit('onlineList', ($('#nick').text()));
+    }, 1000);
+    setInterval(function () {
+        socket.emit('onlineListDEL', ($('#nick').text()));
+        ekle();
+    }, 20000);
     socket.emit('oda', 'Genel');
 
     socket.on('onlineUser', (count) => {
         $('#onlineUser').text(count);
         socket.emit('onlineList', ($('#nick').text()));
+    });
+    jQuery(function(){
+        jQuery(window).bind('beforeunload', function () {
+        socket.emit('onlineListDEL',($('#nick').text()));
+        });
     });
     function scrollBottom() {
 
