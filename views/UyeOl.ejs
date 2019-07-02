@@ -21,7 +21,8 @@
             <div class="field">
                 <label class="label">Kullanıcı Adı</label>
                 <div class="control has-icons-left">
-                    <input class="input" id="username" name="KullaniciAd" type="text" maxlength="7" placeholder="Ayşee34..">
+                    <input class="input" id="username" name="KullaniciAd" type="text" maxlength="7"
+                        placeholder="Ayşee34..">
                     <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                     </span>
@@ -51,9 +52,11 @@
             </div>
 
             <div class="field">
-                <label class="label">E-mail</label>
+                <label class="label">E-mail <span class="subtitle is-6"><i>Sadece <u>edu.tr</u> uzantılı mail geçerli
+                            !</i></span></label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" id="Eposta" name="Eposta" type="email" placeholder="kavi@gmail.com">
+                    <input class="input" id="Eposta" name="Eposta" type="email"
+                        placeholder="edu.tr okuldan alabilirsiniz !">
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -123,8 +126,11 @@
                 $('#hata').text('E-mail boş geçilemez');
                 event.preventDefault();
             }
-
-
+            var uzantı = $('#Eposta').val().substring($('#Eposta').val().length, $('#Eposta').val().length - 6);
+            if (uzantı != 'edu.tr') {
+                $('#hata').text('Sadece öğrenci maili ile kayıt yapabilirsiniz, her öğrencinin edu.tr uzantılı maili vardır bunu okulunuzdan alabilirsiniz.');
+                event.preventDefault();
+            }
         });
     </script>
 </body>

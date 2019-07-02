@@ -17,6 +17,7 @@ app.use(session({
 app.post('/giris', login.GirisYapildi);
 
 app.get('/UyeOl', login.UyeOl);
+app.get('/aktivasyon/:kod', login.AktivasyonOnay);
 
 app.get('/genel', login.getGenel);
 app.post('/UyeOl', login.memberinsert);
@@ -94,7 +95,7 @@ io.sockets.on('connection', (socket) => {
 
     socket.on('onlineList', (data) => {
         login.onlineList(data)
-       // session.nick = data;
+        // session.nick = data;
     });
 
     socket.on('onlineListDEL', (nick) => {
