@@ -45,7 +45,7 @@ $(function () {
     });
 
     var d = new Date();
-    var strDate = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    var strDate = d.getDate() + "/" + (d.getMonth() + 1);
     socket.on('send message', (data) => {
         rs = Math.random();
         // $('#messages').append($('<li>').text(data));

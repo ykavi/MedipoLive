@@ -381,7 +381,7 @@ module.exports.getGenel = function (req, res) {
     }
     return pool2Connect.then((pool) => {
         pool.request() // or: new sql.Request(pool2)
-            .query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
+            .query("select m.Id,m.msg,m.userID,SUBSTRING ( CONVERT(VARCHAR, eklenmeTarihi, 103) ,1 , 5 ) as tarih,CONVERT(VARCHAR(5), eklenmeTarihi, 8) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
                 if (err) {
                     console.log(err);
                 }

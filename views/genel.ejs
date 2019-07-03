@@ -31,7 +31,8 @@
                 <a href="/kuzey" id="kuzey">Kuzey</a>
                 <a href="/guney" id="guney">Güney</a>
                 <a href="/halic" id="halic">Haliç</a>
-                <a href="/onlineList" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/onlineList" style="float: right;" class="subtitle is-5">Aktif : <span
+                        id="onlineUser"></span></a><br>
                 <a href="/hesap">Hesap Bilgilerim</a>
 
                 <% kullanici.forEach(function(user){ %>
@@ -47,23 +48,26 @@
             <ul id="messages">
                 <% mesajlar.forEach(function(mesajlar){ %>
                 <% if(nick===mesajlar.KullaniciAd) { %>
-                <li  id="<%= mesajlar.Id[0]%>" onclick="disPlay(this.id)"  class="Imessage"><span class="is-size-7" style="float: left"><%= mesajlar.eklenmeTarihi %></span>
+                <li id="<%= mesajlar.Id[0]%>" onclick="disPlay(this.id)" class="Imessage"><span class="is-size-7"
+                        style="float: left"> <%= mesajlar.tarih %></span>
                     <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6>
                     <%= mesajlar.msg %>
-                    <span class="icon has-text-success" style="float: left">
-                        <i class="fas fa-check"></i>
+                    <span class="icon has-text-success" style="float: left; margin-top: 25px;">
+                        <i style="margin-left:20px;" class="fas fa-check"></i><span class="is-size-7"
+                            style="float: left; color: #4a4a4a; margin-left: 5px;"> <%= mesajlar.eklenmeTarihi %></span>
                     </span>
                 </li><label id="<%= mesajlar.Id[0]%>" onclick="silDB(this.id)" class="subtitle is-6 has-text-link"
                     style="display: none; float: right; margin-top:15px">Sil</label>
                 <div class="clear"></div>
                 <% } else { %>
 
-                <li  id="<%= mesajlar.Id[0]%>" onclick="disPlay(this.id)"  style="float: left">
-                    <span class="is-size-7" style="float: right"><%= mesajlar.eklenmeTarihi %></span>
+                <li id="<%= mesajlar.Id[0]%>" onclick="disPlay(this.id)" style="float: left">
+                    <span class="is-size-7" style="float: right"><%= mesajlar.tarih %></span>
                     <h6 class="title is-6"><%= mesajlar.KullaniciAd %></h6>
                     <%= mesajlar.msg %>
-                    <span class="icon has-text-success" style="float: right;">
-                        <i class="fas fa-check"></i>
+                    <span class="icon has-text-success" style="float: right; margin-top: 25px;">
+                        <span class="is-size-7" style="float: left; color: #4a4a4a; margin-right: 5px;">
+                            <%= mesajlar.eklenmeTarihi %></span><i style="margin-right:20px;" class="fas fa-check"></i>
                     </span>
                 </li><label id="<%= mesajlar.Id[0]%>" onclick="sikayetEt(this.id)" class="subtitle is-6 has-text-link"
                     style="float: left; display: none; margin-top:15px">Şikayet Et</label>
