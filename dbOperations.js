@@ -191,7 +191,7 @@ module.exports.GirisYapildi = function (req, res) {
                                                                 console.log(err);
                                                             }
                                                             pool.request()
-                                                                .query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
+                                                                .query("select m.Id,m.msg,m.userID,SUBSTRING ( CONVERT(VARCHAR, eklenmeTarihi, 103) ,1 , 5 ) as tarih,CONVERT(VARCHAR(5), eklenmeTarihi, 8) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
                                                                     if (err) {
                                                                         console.log(err);
                                                                     }
@@ -208,7 +208,7 @@ module.exports.GirisYapildi = function (req, res) {
 
                                                 }
                                                 else {
-                                                    res.render('giris', { hata: 'Kullanici Adi veya Şifre Hatalı !' })
+                                                    res.render('giris', { hata: 'Kullanıcı Adı veya Şifre Hatalı !' })
 
                                                 }
                                             });
@@ -262,54 +262,14 @@ module.exports.msgEkle = async function (msg, nick, oda, req, res) {
     //     console.log('The solution is: ', rows[0].solution);
     // });
 
-}/*
-module.exports.GirisYapildi = function (req, res) {
-    sql.connect(webconfig, function (err) {
-        if (err) console.log(err);
-        var request1 = new sql.Request();
-        request1.query("Select dbo.fn_UyeVarmi('" + req.body.ad + "','" + req.body.sifre + "') as Sonuc", function (err, verisonucu) {
-            if (err) {
-                console.log(err);
-            }
-            verisonucu.recordset.forEach(function (kullanici) {
-                if (kullanici.Sonuc == "Evet") {
-                    req.session.nick = req.body.ad;
-                    var request1 = new sql.Request();
-                    request1.query("insert into AktifKullanici values('" + req.body.ad + "',GETDATE())", function (err, recordset) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        request1.query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Genel' and m.userID = k.Id", function (err, mesajlar) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            request1.query("select * from kullanici where KullaniciAd='" + req.session.nick + "'", function (err, kullanicilar) {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                sql.close();
-                                res.render('genel', { nick: req.body.ad, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
-                            });
-                        });
-                    });
-                }
-                else {
-                    res.render('giris', { hata: 'Kullanici Adi veya Şifre Hatalı !' })
-                    sql.close();
-                }
-            });
-        });
-    });
 }
-*/
-
 module.exports.getMsgKuzey = function (req, res) {
     if (req.session.sheld == null) {
         res.render('giris', { hata: 'Lütfen Önce Giriş Yapınız..' });
     }
     return pool2Connect.then((pool) => {
         pool.request() // or: new sql.Request(pool2)
-            .query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Kuzey' and m.userID = k.Id", function (err, mesajlar) {
+            .query("select m.Id,m.msg,m.userID,SUBSTRING ( CONVERT(VARCHAR, eklenmeTarihi, 103) ,1 , 5 ) as tarih,CONVERT(VARCHAR(5), eklenmeTarihi, 8) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Kuzey' and m.userID = k.Id", function (err, mesajlar) {
                 if (err) {
                     console.log(err);
                 }
@@ -333,7 +293,7 @@ module.exports.getMsgGuney = function (req, res) {
     }
     return pool2Connect.then((pool) => {
         pool.request() // or: new sql.Request(pool2)
-            .query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Güney' and m.userID = k.Id", function (err, mesajlar) {
+            .query("select m.Id,m.msg,m.userID,SUBSTRING ( CONVERT(VARCHAR, eklenmeTarihi, 103) ,1 , 5 ) as tarih,CONVERT(VARCHAR(5), eklenmeTarihi, 8) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Güney' and m.userID = k.Id", function (err, mesajlar) {
                 if (err) {
                     console.log(err);
                 }
@@ -357,7 +317,7 @@ module.exports.getMsgHalic = function (req, res) {
     }
     return pool2Connect.then((pool) => {
         pool.request() // or: new sql.Request(pool2)
-            .query("select m.Id,m.msg,m.userID,convert(varchar, getdate(), 105) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Haliç' and m.userID = k.Id", function (err, mesajlar) {
+            .query("select m.Id,m.msg,m.userID,SUBSTRING ( CONVERT(VARCHAR, eklenmeTarihi, 103) ,1 , 5 ) as tarih,CONVERT(VARCHAR(5), eklenmeTarihi, 8) as eklenmeTarihi,m.odaAdi,k.Id,k.KullaniciAd from Mesajlar m,kullanici k where odaAdi = 'Haliç' and m.userID = k.Id", function (err, mesajlar) {
                 if (err) {
                     console.log(err);
                 }

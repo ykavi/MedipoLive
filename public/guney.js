@@ -41,16 +41,31 @@ $(function () {
     });
     var d = new Date();
     var strDate = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    var saat = d.getHours() + ':' + d.getMinutes();
+    if (d.getDate() <= 9 && d.getMonth() <= 9) {
+        strDate = '0' + d.getDate() + "/" + '0' + (d.getMonth() + 1);
+    } else if (d.getDate() <= 9) {
+        strDate = '0' + d.getDate() + "/" + (d.getMonth() + 1);
+    } else if (d.getMonth() <= 9) {
+        strDate = d.getDate() + "/" + '0' + (d.getMonth() + 1);
+    }
+    if (d.getHours() <= 9 && d.getMinutes() <= 9) {
+        saat = '0' + d.getHours() + ":" + '0' + (d.getMinutes());
+    } else if (d.getHours() <= 9) {
+        saat = '0' + d.getHours() + ":" + (d.getMinutes());
+    } else if (d.getMinutes() <= 9) {
+        saat = d.getHours() + ":" + '0' + (d.getMinutes());
+    }
     socket.on('send message', (data) => {
         rs = Math.random();
-        document.getElementById('messages').innerHTML += '<div id="' + rs + '" style="display:none">' + data.msg + '</div>' + '<li id="' + rs + '"  onclick="disPlay(' + rs + ')" style="float:left"><span class="is-size-7" style="float: right">' + strDate + '</span><h6 id="' + (rs + 1) + '" class="title is-6">' + data.nick + '</h6>' + data.msg + '<span class="icon has-text-success"  style="float: right">'
-            + '<i class="fas fa-check"></i></span></li>' + '<label onclick="sikayetEtADD(' + rs + ')" name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: left; margin-top:15px">Şikayet Et</label>'
+        document.getElementById('messages').innerHTML += '<div id="' + rs + '" style="display:none">' + data.msg + '</div>' + '<li id="' + rs + '"  onclick="disPlay(' + rs + ')" style="float:left"><span class="is-size-7" style="float: right">' + strDate + '</span><h6 id="' + (rs + 1) + '" class="title is-6">' + data.nick + '</h6>' + data.msg + '<span class="icon has-text-success"  style="float: right;margin-top: 25px;">'
+            + '<span class="is-size-7" style="float: left; color: #4a4a4a; margin-right: 5px;">' + saat + '</span><i style="margin-right:20px;" class="fas fa-check"></i></span></li>' + '<label onclick="sikayetEtADD(' + rs + ')" name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: left; margin-top:15px">Şikayet Et</label>'
         scrollBottom()
     });
     socket.on('Imessage', (data) => {
         rs = Math.random();
-        document.getElementById('messages').innerHTML += '<div id="' + rs + '" style="display:none">' + data + '</div><li id="' + rs + '" onclick="disPlay(' + rs + ')" class="Imessage"><span class="is-size-7" style="float: left">' + strDate + '</span><h6 class="title is-6">' + $('#nick').text() + '</h6>' + data + '<span class="icon has-text-success"  style="float: left">' +
-            '<i class="fas fa-check"></i></span>' + '</li>' + '<label onclick="sil(' + rs + ')" name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: right; margin-top:15px">Sil</label>'
+        document.getElementById('messages').innerHTML += '<div id="' + rs + '" style="display:none">' + data + '</div><li id="' + rs + '" onclick="disPlay(' + rs + ')" class="Imessage"><span class="is-size-7" style="float: left ">' + strDate + '</span><h6 class="title is-6">' + $('#nick').text() + '</h6>' + data + '<span class="icon has-text-success"  style="float: left; margin-top: 25px;">' +
+            '<i style="margin-left:20px;" class="fas fa-check"></i><span style="float: left; color: #4a4a4a; margin-left: 5px;" class="is-size-7">' + saat + '</span></span>' + '</li>' + '<label onclick="sil(' + rs + ')" name="' + rs + '" class="subtitle is-6 has-text-link" style="display: none; float: right; margin-top:15px">Sil</label>'
         $('#messages').append($('<div class="clear">'));
     });
 
@@ -58,9 +73,9 @@ $(function () {
         $('#onlineUser').text(count);
         socket.emit('onlineList', ($('#nick').text()));
     });
-    jQuery(function(){
+    jQuery(function () {
         jQuery(window).bind('beforeunload', function () {
-        socket.emit('onlineListDEL',($('#nick').text()));
+            socket.emit('onlineListDEL', ($('#nick').text()));
         });
     });
 
