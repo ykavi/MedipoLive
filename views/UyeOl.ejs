@@ -5,101 +5,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <title>Üye Ol</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
 <body>
+    <div style="text-align: center; margin-top: 30px;">
+        <h2 class="subtitle is-2"
+            style="color: white; font-weight:bold; 	font-family: Copperplate,Copperplate Gothic Light,fantasy;font-size: 45px;">
+            MpChat
+        </h2>
+    </div>
     <div class="container box" style="padding:10px; margin-top:2%; padding: 3%;">
         <div class="field">
             <div class="control">
             </div>
         </div>
         <form action="/UyeOl" method="POST">
-            <div class="field">
-                <label class="label">Kullanıcı Adı</label>
-                <div class="control has-icons-left">
-                    <input class="input" id="username" name="KullaniciAd" type="text" maxlength="7"
-                        placeholder="Ayşee34..">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
-                    </span>
-                </div>
+            <% if (hata) { %>
+            <label id="hata2" class="label has-text-danger"><%=hata%></label>
+
+            <% } %>
+            <label id="hata" class="label has-text-danger" style="display: none;"></label>
+
+            <div class="field" tabindex="2">
+
+                <label for="username">
+
+                    <i class="fas fa-user"></i>Kullanıcı Adı
+                </label>
+                <input name="KullaniciAd" type="text" id="username" placeholder="kullanıcı adı" required>
             </div>
-            <div class="field">
-                <label class="label">Şifre</label>
-                <div class="control has-icons-left has-icons-right">
-                    <input class="input" name="Sifre" id="password" type="password">
+            <div class="field" tabindex="2">
 
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-key"></i>
-                    </span>
+                <label for="sifre">
 
-                </div>
+                    <i class="fas fa-key"></i>Şifre
+                </label>
+                <input name="Sifre" type="password" id="password" placeholder="Şifre" required>
             </div>
-            <div class="field">
-                <label class="label">Şifre Tekrar</label>
-                <div class="control has-icons-left has-icons-right">
-                    <input class="input" name="Sifre2" id="password2" type="password">
+            <div class="field" tabindex="2">
 
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-key"></i>
-                    </span>
+                <label for="sifretekrar">
 
-                </div>
+                    <i class="fas fa-key"></i>Şifre Tekrar
+                </label>
+                <input name="Sifre2" type="password" id="password2" placeholder="Şifre Tekrar" required>
             </div>
 
-            <div class="field">
-                <label class="label">E-mail <span class="subtitle is-6"><i>Sadece <u>edu.tr</u> uzantılı mail geçerli
-                            !</i></span></label>
-                <div class="control has-icons-left has-icons-right">
-                    <input class="input" id="Eposta" name="Eposta" type="email"
-                        placeholder="edu.tr okuldan alabilirsiniz !">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </span>
-                </div>
+            <div class="field" tabindex="2">
+
+                <label for="email">
+
+                    <i class="fas fa-envelope"></i>E-mail
+                </label>
+                <input name="Eposta" type="email" id="Eposta" placeholder="Email" required>
+
             </div>
 
             <div class="field">
-                <label class="label">Güvenlik Sorusu</label>
+                <label class="label"><i class="fas fa-question"></i>Güvenlik Sorusu</label>
                 <div class="control">
                     <div class="select">
-                        <select name="Soru">
-                            <option>
-                                En sevdiğiniz hayvan?
-                            </option>
-                            <option>
-                                En sevdiğiniz renk?
-                            </option>
-                            <option>
-                                En yakın arkadaşınızın adı nedir?
-                            </option>
+                        <select name="soru" class="mdb-select md-form">
+                            <option value="" disabled selected>Lütfen Soru Seçiniz</option>
+                            <option value="1"> En sevdiğiniz hayvan?</option>
+                            <option value="2">En sevdiğiniz renk?</option>
+                            <option value="3">En yakın arkadaşınızın adı nedir?</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <div class="field">
-                <label class="label">Cevap</label>
-                <div class="control">
-                    <input class="input" id="cevap" name="Cevap" type="text" placeholder="Kedi..">
-                </div>
-            </div>
-            <label id="hata2" class="label has-text-danger"><%=hata%></label>
-            <label id="hata" class="label has-text-danger"></label>
+            <div class="field" tabindex="2">
 
-            <div class="field is-grouped">
+                <label for="username">
+
+                    <i class="fas fa-pen"></i>Cevap
+                </label>
+                <input name="Cevap" type="text" id="cevap" placeholder="Cevap" required>
+            </div><br>
+
+
+            <div class="field is-groupe">
                 <div class="control">
-                    <button type="submit" class="button is-link">Kaydet</button>
-                </div>
-                <div class="control">
-                    <a href="/" class="button is-light">İptal</a>
+                    <button type="submit" class="button is-link">Kaydet</button> <button><a href="/"
+                            class="dekorasyon1">İptal</a></button>
+
                 </div>
             </div>
         </form>
@@ -113,23 +110,36 @@
             if ($.trim($('#username').val()) == "" || $('#username').val() == null || $('#username').val().length < 4) {
                 $('#hata').text('Kullanıcı Adı en az 4 karakter olmalı');
                 event.preventDefault();
+                document.getElementById('hata').style = "display:block;"
+                document.getElementById('hata2').style = "display:none;"
+
             }
             if ($('#password').val() == null || $('#password').val().length < 4 || $('#password').val() != $('#password2').val()) {
                 $('#hata').text('Şifreler birbiriyle aynı olmalı ve En az 4 karakter içermeli');
                 event.preventDefault();
+                document.getElementById('hata').style = "display:block;"
+                document.getElementById('hata2').style = "display:none;"
+
             }
             if ($.trim($('#cevap').val()) == "" || $('#cevap').val() == null || $('#cevap').val().length < 2) {
                 $('#hata').text('Cevap En az 2 karakter içermeli');
                 event.preventDefault();
+                document.getElementById('hata').style = "display:block;"
+                document.getElementById('hata2').style = "display:none;"
+
             }
             if ($.trim($('#Eposta').val()) == "" || $('#Eposta').val() == null) {
                 $('#hata').text('E-mail boş geçilemez');
                 event.preventDefault();
+                document.getElementById('hata').style = "display:block;"
+                document.getElementById('hata2').style = "display:none;"
             }
             var uzantı = $('#Eposta').val().substring($('#Eposta').val().length, $('#Eposta').val().length - 6);
             if (uzantı != 'edu.tr') {
-                $('#hata').text('Sadece öğrenci maili ile kayıt yapabilirsiniz, her öğrencinin edu.tr uzantılı maili vardır bunu okulunuzdan alabilirsiniz.');
+                $('#hata').text('Sadece edu.tr uzantılı mail ile üye olabilirsiniz.');
                 event.preventDefault();
+                document.getElementById('hata').style = "display:block;"
+                document.getElementById('hata2').style = "display:none;"
             }
         });
     </script>

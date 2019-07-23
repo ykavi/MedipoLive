@@ -1,63 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" style="background: hsl(204, 86%, 53%)">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Giriş</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 
-<body style="background: hsl(204, 86%, 53%)">
+<body>
     <div style="text-align: center; padding: 27px;">
-        <h2 class="subtitle is-2" style="color: white; font-weight:bold; font-style: italic; font-size: 45px;">MpChat
+        <h2 class="subtitle is-2"
+            style="color: white; font-weight:bold; 	font-family: Copperplate,Copperplate Gothic Light,fantasy;font-size: 45px;">
+            MpChat
         </h2>
     </div>
-    <div class="container box" style="padding:10px; margin-top:10%; padding: 3%;">
+    <div class="container">
         <div class="field">
             <div class="control">
             </div>
         </div>
         <form action="/giris" method="POST">
+            <% if (hata) { %>
+            <label id="hataStyle"><i class="fas fa-exclamation-circle"></i><%=hata%></label>
+            <% } %>
+
+            <div class="field" tabindex="2">
+
+                <label for="username">
+
+                    <i class="fas fa-user"></i>Kullanıcı Adı
+                </label>
+                <input name="ad" type="text" id="username" placeholder="kullanıcı adı" required>
+            </div>
+
+            <div class="field" tabindex="2">
+                <label for="sifre">
+                    <i class="fas fa-key"></i>Şifre
+                </label>
+                <input name="sifre" type="password" id="password" placeholder="*********" required>
+            </div>
             <div class="field">
-                <label class="label">Kullanıcı Adı</label>
-                <div class="control has-icons-left">
-                    <input class="input" id="username" name="ad" type="text">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
-                    </span>
+                <div class="control">
+                    <input type="checkbox" onclick=BeniHatirla() class="checkBoxstyle">
+
+                    <a class="subtitle is-6">Beni Hatırla</a><a class="dekorasyon" href="/sifre">Şifremi Unuttum</a>
+
+                    <div class="field is-grouped">
+                        <button type="submit" class="button">Giriş Yap</button>
+                        <button class="button"><a class="dekorasyon1" href="/UyeOl">Üye Ol</a></button>
+
+                    </div>
+
                 </div>
             </div>
 
-            <div class="field">
-                <label class="label">Şifre</label>
-                <div class="control has-icons-left">
-                    <input class="input" name="sifre" id="password" type="password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-key"></i>
-                    </span>
-                    <div class="field">
-                        <div class="control">
-                            <label class="checkbox">
-                                <input type="checkbox" onclick=BeniHatirla()>
-                                <a class="subtitle is-6">Beni Hatırla</a><a class="subtitle is-6" href="/sifre"
-                                    style="margin-left:80px">Şifremi Unuttum</a><br>
-                                <label class="label has-text-danger"><%=hata%></label>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="field is-grouped">
-                        <div class="control">
-                            <button type="submit" class="button is-link">Giriş Yap</button>
-                        </div>
-                        <div class="control">
-                            <a href="/UyeOl" class="button is-light">Üye Ol</a>
-                        </div>
-                    </div>
         </form>
     </div>
     <script>
@@ -70,6 +73,8 @@
         }
         document.getElementById("username").value = localStorage.getItem('username')
         document.getElementById("password").value = localStorage.getItem('password')
+
+
 
     </script>
 </body>

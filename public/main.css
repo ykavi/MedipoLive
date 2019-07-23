@@ -1,138 +1,186 @@
-body,html{
-    overflow:hidden;
-} 
-#ana {
-    padding: 1px;
+body,
+html {
+  overflow: hidden;
 }
- #footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            color: white;
-            text-align: center;
-        }
-        .icerik {
-            width: 100%;
-            overflow: auto;
-            overflow-y: scroll;
-        }
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 30;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-       
-      
-      
+body {
+  background: linear-gradient(-45deg, #5ffbf1, #86a8e7, #d16ba5, #23d5ab);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+}
+.navbar.is-fixed-top {
+  top: -5px;
+}
 
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-        .sidenavright {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 30;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-         
-        }
-        .sidenavright a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+#ana {
+  padding: 1px;
+}
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+.icerik {
+  width: 100%;
+  overflow: auto;
+  overflow-y: scroll;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
 
-        #main {
-            transition: margin-left .5s;
-            padding: 16px;
-        }
-        .uyari{
-            width:70%;
-            height:150px;
-          margin:0 auto;
-          margin-top:120px
-        }
-        @media screen and (max-height: 450px ) {
-            .sidenav {
-                padding-top: 15px;
-            }
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.sidenavright {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+.sidenavright a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
 
-            .sidenav a {
-                font-size: 18px;
-            }
-        }
+.sidenav a:hover {
+  color: #f1f1f1;
+}
 
-        #messages {
-            list-style-type: none;
-            margin: 10px;
-        }
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
 
-        #messages li {
-            
-            background-color: #f8f8f8;
-            /*box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;*/
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,1.1)!important;
-            margin: 9px;
-            padding: 5px 10px;
-            width: 50%;
-            word-wrap: break-word; 
-            border-radius: 10px;
-            background: #eee;
-            
-        }
-        li h6 {
-            cursor: pointer;
-        }
-        .icerik{
-            margin-top: 65px;
-            margin-bottom: 40px;
-        }
-        #messages .Imessage{
-            text-align: right;
-            float: right;
-            background-color: #f8f8f8;
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,1.1)!important;
-            margin: 9px;
-        }
-        .clear{
-            clear: both;
-        }
-        #SagNav{
-           float:right;
-            font-size:25px;
-            cursor:pointer;
+#main {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
+.uyari {
+  width: 70%;
+  height: 150px;
+  margin: 0 auto;
+  margin-top: 120px;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
 
-        }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+#messages {
+  list-style-type: none;
+  margin: 10px;
+}
+
+#messages li {
+  /*box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;*/
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 1.1) !important;
+  margin: 9px;
+  padding: 5px 10px;
+  width: 50%;
+  word-wrap: break-word;
+  border-radius: 10px;
+  background: #aadae5;
+}
+li h6 {
+  cursor: pointer;
+}
+.icerik {
+  margin-top: 65px;
+  margin-bottom: 40px;
+}
+#messages .Imessage {
+  text-align: right;
+  float: right;
+  background-color: #baffc9;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 1.1) !important;
+  margin: 9px;
+}
+.clear {
+  clear: both;
+}
+#SagNav {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+}
+nav.navbar.is-fixed-top {
+  background-color: #ffffff59;
+}
+#send {
+  width: 64px;
+}
+i.fas.fa-paper-plane::before {
+  font-size: 21px;
+}
