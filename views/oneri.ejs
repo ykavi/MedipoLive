@@ -5,21 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="oneriHesap.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <title>Oneriler</title>
 </head>
 
 <body>
-    
+
     <div id="ana">
 
 
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
-            <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
-            <a class="subtitle is-4">MpChat</a>
+            <span style="font-size:25px;cursor:pointer;float:left; " onclick="openNav()">&#9776;MpChat <sub>Öneri ve
+                    Görüşler</sub> </span>
+
             <div id="nick" style="display:none"></div>
         </nav>
 
@@ -28,15 +32,17 @@
             <div id="mySidenav" class="sidenav">
 
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a class="subtitle is-3">Oda Seçimi</a>
+                <a class="subtitle is-3" style="color:#818181; font-size: 2rem;">Oda Seçimi</a>
                 <a href="/genel" id="genel">Genel</a>
                 <a href="/kuzey" id="kuzey">Kuzey</a>
                 <a href="/guney" id="guney">Güney</a>
                 <a href="/halic" id="halic">Haliç</a>
-                <a href="/onlineList" style="float: right;" class="subtitle is-5">Aktif : <span id="onlineUser"></span></a><br>
+                <a href="/onlineList" style="float: right;font-size: 1.35rem;" class="subtitle is-5">Aktif : <span
+                        id="onlineUser"></span></a><br>
                 <a href="/hesap">Hesap Bilgilerim</a>
                 <% kullanici.forEach(function(user){ %>
-                    <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
+                <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)"
+                    style="color:#818181; cursor: pointer;">Hesabımı Sil</a>
                 <% }); %>
                 <a href="/oneri">Öneride Bulun</a>
                 <a href="/" id="Cikis">Çıkış</a>
@@ -44,69 +50,71 @@
             </div>
 
         </div>
+        <div class="container">
 
-        <form action="/oneri" method="POST">
-            <div class="icerik" id="icerik">
-                <div class="container box" style="padding:10px; margin-top:50px; padding: 3%;">
-                    <h3 class="subtitle is-3">Öneri ve Görüşler</h3>
+            <form action="/oneri" method="POST">
+                <div class="basliks">Önerileriniz</div>
+                <div class="icerik" style="margin-top: 20px; " id="icerik">
+                    
+                    <% if (hata) { %>
+
+                    <label id="basari" class="label has-text-success" style="margin-top:5px"><%=hata%></label>
+                    <% } %>
                     <div class="field">
-                        <label class="label">Konu</label>
                         <div class="control">
-                            <input class="input" id="username" name="konu" type="text">
-                            <label class="label" style="margin:5px 0px 5px 0px;">İletiniz</label>
+                            <div class="field" tabindex="2">
+
+                                <label for="Email">
+
+                                    <i class="fab fa-korvue"></i>Konu
+                                </label>
+                                <input id="username" name="konu" type="text">
+                            </div>
+                            <label class="label" style="margin:5px 0px 5px 0px;"><i
+                                    class="fas fa-envelope-open-text"></i></i>İletiniz</label>
                             <div class="field">
                                 <div class="control">
-                                    
-                                  <textarea class="textarea is-info" placeholder="Buraya yazabilirsiniz..." style="resize: none;" name="oneri"></textarea>
+
+                                    <textarea class="textarea is-info" placeholder="Buraya yazabilirsiniz..."
+                                        style="resize: none;" name="oneri"></textarea>
                                 </div>
-                                <label class="label has-text-success" style="margin-top:5px"><%=hata%></label>
-                              </div>
-                      
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="control">
-                        <button type="submit" class="button is-link" style="margin:2%">Gönder</button>
-                        <a href="/genel" class="button is-light" style="margin:2%">İptal</a>
+                        <button type="submit" class="button is-link">Gönder</button> <button
+                            onclick="location.href='/genel'" type="button" class="dekorasyon1">İptal</button>
                     </div>
                 </div>
 
 
-            </div>
-        </form>
 
+            </form>
+        </div>
     </div>
 
 
     </div>
 
     <div class="modal" id="modalim">
-        <div class="modal-background"></div>
-        <div class="uyari">
-            <div class="card">
-                <header class="card-header ">
-                    <p class="card-header-title is-centered is-size-4	">
-                        Onay
-                    </p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                        </span>
-                    </a>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                        <p class="title is-5">Geri dönüşü olmamak üzere hesabınızı silme işlemini onaylıyor musunuz ?
-                        </p>
-                        <br>
-                    </div>
-                </div>
-                <footer class="card-footer">
-                    <a id="onayButton" class="card-footer-item">Onayla</a>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Onay</h5>
 
-                    <a id="vazgec" class="card-footer-item">Vazgeç</a>
-                </footer>
+                </div>
+                <div class="modal-body">
+                    <p>Geri dönüşü olmamak üzere hesabınızı silme işlemini onaylıyor musunuz ?</p>
+                </div>
+                <div class="modal-footer">
+                    <a id="onayButton" class="btn btn-primary btn-md" style="cursor: pointer;color:white;">Onayla</a>
+
+                    <a id="vazgec" class="btn btn-secondary btn-md" style="cursor: pointer;color:white;">İptal</a> </div>
             </div>
         </div>
+
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>

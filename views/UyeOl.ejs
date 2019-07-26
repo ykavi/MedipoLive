@@ -29,8 +29,8 @@
         <form action="/UyeOl" method="POST">
             <% if (hata) { %>
             <label id="hata2" class="label has-text-danger"><%=hata%></label>
-
             <% } %>
+
             <label id="hata" class="label has-text-danger" style="display: none;"></label>
 
             <div class="field" tabindex="2">
@@ -94,8 +94,7 @@
 
             <div class="field is-groupe">
                 <div class="control">
-                    <button type="submit" class="button is-link">Kaydet</button> <button><a href="/"
-                            class="dekorasyon1">İptal</a></button>
+                    <button type="submit" class="button is-link">Kaydet</button> <button onclick="location.href='/'" type="button" class="dekorasyon1">İptal</button>
 
                 </div>
             </div>

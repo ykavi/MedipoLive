@@ -6,10 +6,7 @@ $(function () {
     $(window).resize(function () {
         $("#icerik").height(window.innerHeight - 120 + 'px');
     });
-    scrollingElement = (document.scrollingElement || document.body)
-    $(scrollingElement).animate({
-        scrollTop: document.body.scrollHeight
-    });
+    
     var socket = io.connect('/');
     var ekle = setInterval(function () {
         socket.emit('onlineList', ($('#nick').text()));

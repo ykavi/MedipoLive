@@ -37,26 +37,25 @@
 
                     <i class="fas fa-user"></i>Kullanıcı Adı
                 </label>
-                <input name="ad" type="text" id="username" placeholder="kullanıcı adı" required>
+                <input name="ad" type="text" id="username" placeholder="kullanıcı adı" >
             </div>
 
             <div class="field" tabindex="2">
                 <label for="sifre">
                     <i class="fas fa-key"></i>Şifre
                 </label>
-                <input name="sifre" type="password" id="password" placeholder="*********" required>
+                <input name="sifre" type="password" id="password" placeholder="*********" >
             </div>
             <div class="field">
                 <div class="control">
                     <input type="checkbox" onclick=BeniHatirla() class="checkBoxstyle">
 
-                    <a class="subtitle is-6">Beni Hatırla</a><a class="dekorasyon" href="/sifre">Şifremi Unuttum</a>
+                    <a>Beni Hatırla</a><a class="dekorasyon" href="/sifre">Şifremi Unuttum</a><br>
 
-                    <div class="field is-grouped">
-                        <button type="submit" class="button">Giriş Yap</button>
-                        <button class="button"><a class="dekorasyon1" href="/UyeOl">Üye Ol</a></button>
+                    <button type="submit" class="button">Giriş Yap</button> <button onclick="location.href='/UyeOl'" type="button" class="dekorasyon1">Üye Ol</button>
+                        
 
-                    </div>
+                    
 
                 </div>
             </div>

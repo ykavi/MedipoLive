@@ -22,7 +22,7 @@ const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'yunusemre.kavi@gmail.com',
+        user: 'locas-34@hotmail.com',
         pass: '*******'
     }
 });
@@ -110,7 +110,7 @@ module.exports.HesapSilindi = function (req, res) {
                     console.log(err);
                 }
                 sql.close();
-                res.render('giris', { hata: '' });
+                res.redirect('/giris');
 
             })
     }).catch(err => {

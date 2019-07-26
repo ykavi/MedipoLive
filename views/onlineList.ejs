@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" style="overflow: auto">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <title>Oneriler</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Aktif</title>
+    <link rel="stylesheet" href="oneriHesap.css">
 </head>
 
 <body>
@@ -18,8 +20,8 @@
 
 
         <nav class="navbar is-fixed-top" role="navigation" aria-label="dropdown navigation">
-            <span style="font-size:25px;cursor:pointer;float:left" onclick="openNav()">&#9776;</span>
-            <a class="subtitle is-4">MpChat</a>
+            <span style="font-size:25px;cursor:pointer;float:left;" onclick="openNav()">&#9776;MpChat
+                <sub>Aktif</sub></span>
             <div id="nick" style="display:none"></div>
         </nav>
 
@@ -28,17 +30,18 @@
             <div id="mySidenav" class="sidenav">
 
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a class="subtitle is-3">Oda Seçimi</a>
+                <a class="subtitle is-3" style="color:#818181; font-size:2rem;">Oda Seçimi</a>
                 <a href="/genel" id="genel">Genel</a>
                 <a href="/kuzey" id="kuzey">Kuzey</a>
                 <a href="/guney" id="guney">Güney</a>
                 <a href="/halic" id="halic">Haliç</a>
-                <a href="/onlineList" style="float: right;" class="subtitle is-5">Aktif : <span
+                <a href="/onlineList" style="float: right;font-size: 1.35rem;" class="subtitle is-5">Aktif : <span
                         id="onlineUser"></span></a><br>
                 <a href="/hesap">Hesap Bilgilerim</a>
 
                 <% kullanici.forEach(function(user){ %>
-                <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)">Hesabımı Sil</a>
+                <a name="/hesap/<%= user.Id %>" onclick="onay(this.name)"
+                    style="color:#818181;cursor: pointer;">Hesabımı Sil</a>
                 <% }); %>
                 <a href="/oneri">Öneride Bulun</a>
                 <a href="/" id="Cikis">Çıkış</a>
@@ -47,35 +50,45 @@
 
         </div>
 
+        <div class="basliks">Online Kullanıcılar</div>
 
-        <div class="container box" style="margin-top:6%; border-radius: 0px; padding: 2%">
-            <h3 class="subtitle is-4" style="margin-top:42px">Online Kullanıcılar</h3>
-            <% onlinelist.forEach(function(onlinelist){ %>
-
+        <div class="container" style="margin-top:13px;">
             <div class="list is-hoverable">
 
-                <a class="list-item">
+                <% onlinelist.forEach(function(onlinelist){ %>
 
-                    <label class="label">Kullanıcı Adı </label>
+
+                <div class="field" tabindex="2">
+
+                    <label for="username" style="width:100%;">
+
+                        <i class="fas fa-user"></i>Kullanıcı Adı
+                    </label>
                     <input class="input" readonly="" id="username" name="kullanici" type="text"
-                        value="  <%= onlinelist.nick %>">
-                    <label class="label">Mesaj Sayısı</label>
+                        value="  <%= onlinelist.nick %>" style="width:100%;">
+                </div>
+                <div class="field" tabindex="2">
+
+                    <label for="username" style="width:100%;">
+
+                        <i class="fas fa-pen"></i>Mesaj Sayısı
+                    </label>
                     <input class="input" readonly="" id="username" name="konu" type="text"
-                        value=" <%= onlinelist.mesajSayisi  %>">
-                    <form action="/AdminOneriler" method="POST">
-                        <input class="input" id="username" name="no" type="text" value="<%= onlinelist.Id  %>"
-                            style="display:none">
+                        value=" <%= onlinelist.mesajSayisi  %>" style="width:100%;">
+                </div>
+                <form action="/AdminOneriler" method="POST">
+                    <input class="input" id="username" name="no" type="text" value="<%= onlinelist.Id  %>"
+                        style="display:none">
 
 
 
 
-                    </form>
+                </form>
+                <hr>
 
-
-                </a>
+                <% }); %>
 
             </div>
-            <% }); %>
         </div>
 
 
@@ -86,30 +99,19 @@
     </div>
 
     <div class="modal" id="modalim">
-        <div class="modal-background"></div>
-        <div class="uyari">
-            <div class="card">
-                <header class="card-header ">
-                    <p class="card-header-title is-centered is-size-4	">
-                        Onay
-                    </p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                        </span>
-                    </a>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                        <p class="title is-5">Geri dönüşü olmamak üzere hesabınızı silme işlemini onaylıyor musunuz ?
-                        </p>
-                        <br>
-                    </div>
-                </div>
-                <footer class="card-footer">
-                    <a id="onayButton" class="card-footer-item">Onayla</a>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Onay</h5>
 
-                    <a id="vazgec" class="card-footer-item">Vazgeç</a>
-                </footer>
+                </div>
+                <div class="modal-body">
+                    <p>Geri dönüşü olmamak üzere hesabınızı silme işlemini onaylıyor musunuz ?</p>
+                </div>
+                <div class="modal-footer">
+                    <a id="onayButton" class="btn btn-primary btn-md" style="cursor: pointer;color:white;">Onayla</a>
+
+                    <a id="vazgec" class="btn btn-secondary btn-md" style="cursor: pointer;color:white;">İptal</a> </div>
             </div>
         </div>
         <button class="modal-close is-large" aria-label="close"></button>

@@ -6,59 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
 <body>
+    <div class="container">
+            <div class="field">
+                    <div class="control">
+                    </div>
+                </div>
     <form action="/sifre" method="POST">
-        <div class="container box" style="padding:10px; margin-top:2%; padding: 3%;">
 
-            <div class="columns is-gapless is-multiline is-mobile">
-                <div class="column" style="margin-left:10px;margin-right:10px" id="HesapEkrani">
                     <h3 class="title is-3">1.Adım: Hesap Bilgileri</h3>
-                    <label class="label">E posta</label>
-                    <input class="input" id="username" name="Email" type="text">
-                    <div class="field" style="margin:10px 0 10px 0">
-                        <label class="label" name="GuvenlikSorusu">Güvenlik Sorusu</label>
+                    <% if (hata) { %>
+
+                    <label id="hata2" class="label has-text-danger"><%=hata%></label>
+                    <% } %>
+
+                    <div class="field" tabindex="2">
+
+                        <label for="Email">
+        
+                            <i class="fas fa-user"></i>E Posta
+                        </label>
+                        <input name="Email" type="text" id="username" >
+                    </div>
+        
+                    <div class="field">
+                        <label class="label"><i class="fas fa-question"></i>Güvenlik Sorusu</label>
                         <div class="control">
                             <div class="select">
-                                <select name="soru">
-                                    <option>
-                                        En sevdiğiniz hayvan?
-                                    </option>
-                                    <option>
-                                        En sevdiğiniz renk?
-                                    </option>
-                                    <option>
-                                        En yakın arkadaşınızın adı nedir?
-                                    </option>
+                                <select name="soru" class="mdb-select md-form">
+                                    <option value="" disabled selected>Lütfen Soru Seçiniz</option>
+                                    <option value="1"> En sevdiğiniz hayvan?</option>
+                                    <option value="2">En sevdiğiniz renk?</option>
+                                    <option value="3">En yakın arkadaşınızın adı nedir?</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <label class="label" name="Cevap">Cevap</label>
-                    <input class="input" id="username" name="Cevaps" type="text">
-                    <label class="label has-text-danger"><%=hata%></label>
+        
+                    <div class="field" tabindex="2">
+
+                        <label for="answer">
+        
+                            <i class="fas fa-key"></i>Cevap
+                        </label>
+                        <input name="Cevaps" type="text" id="username" >
+                    </div>
                     <div class="field is-grouped" style="margin-top:25px">
                         <div class="control">
-                            <input type="submit" value="Devam" class="button is-link">
+                            <button type="submit" value="Devam" class="button is-link">Devam</button> <button onclick="location.href='/'" type="button" class="dekorasyon1">İptal</button>                  
                         </div>
-                        <div class="control">
-                            <a href="/" class="button is-light">İptal</a>
+
                         </div>
                     </div>
-                </div>
                 <!---------------------------->
 
-            </div>
 
 
-        </div>
     </form>
+</div>
     <!--
     <script>
 
