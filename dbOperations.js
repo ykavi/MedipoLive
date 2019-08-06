@@ -20,10 +20,10 @@ var webconfig = {
 var UUID = require('uuid-js');
 const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'hotmail',
     auth: {
         user: 'locas-34@hotmail.com',
-        pass: '*******'
+        pass: '33221165'
     }
 });
 
@@ -61,7 +61,7 @@ module.exports.memberinsert = function (req, res) {
                                     from: 'MpChat',
                                     to: req.body.Eposta,
                                     subject: 'MpChat Onay Linki',
-                                    text: 'Merhaba, ' + req.body.KullaniciAd + ' Linke tıklayıp giriş yapabilirsiniz ' + 'http://localhost:3000/aktivasyon/' + uuid4.toString()
+                                    text: 'Merhaba, ' + req.body.KullaniciAd + ' Linke tıklayıp giriş yapabilirsiniz ' + 'https://828jkzxwx9.sse.codesandbox.io/aktivasyon/' + uuid4.toString()
                                 };
                                 transporter.sendMail(bilgiler, function (error, info) {
 
@@ -861,7 +861,7 @@ module.exports.AktivasyonOnay = function (req, res) {
                 if (err) {
                     console.log(err);
                 }
-                res.render('giris', { hata: 'Aktivasyon Başarılı, giriş yapabilirsiniz.' });
+                res.redirect('/giris');
             });
     }).catch(err => {
         // ... error handler
