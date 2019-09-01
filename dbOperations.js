@@ -19,13 +19,26 @@ var webconfig = {
 */
 var UUID = require('uuid-js');
 const nodemailer = require('nodemailer');
-let transporter = nodemailer.createTransport({
-    service: 'hotmail',
+var smtpTransport = require('nodemailer-smtp-transport');
+const handlebars = require('handlebars');
+
+smtpTransport = nodemailer.createTransport(smtpTransport({
+    host: 'smtp.gmail.com',
+    secure: true,
+    port: 465,
     auth: {
-        user: 'locas-34@hotmail.com',
-        pass: '33221165'
+        user: 'mpchat.medipol@gmail.com',
+        pass: 'MP.chat12'
     }
-});
+}));
+
+// let transporter = nodemailer.createTransport({
+//     service: 'hotmail',
+//     auth: {
+//         user: 'locas-34@hotmail.com',
+//         pass: '33221165'
+//     }
+// });
 
 const pool2 = new sql.ConnectionPool(webconfig)
 const pool2Connect = pool2.connect()
@@ -53,7 +66,7 @@ module.exports.memberinsert = function (req, res) {
                                 }
                                 var uuid4 = UUID.create();
                                 console.log(uuid4.toString());
-                                transporter.verify(function (error, success) {
+                                smtpTransport.verify(function (error, success) {
                                     if (error) throw error;
                                     console.log('E-Posta bağlantısı sağlandı');
                                 });
@@ -63,13 +76,21 @@ module.exports.memberinsert = function (req, res) {
                                     subject: 'MpChat Onay Linki',
                                     text: 'Merhaba, ' + req.body.KullaniciAd + ' Linke tıklayıp giriş yapabilirsiniz ' + 'https://828jkzxwx9.sse.codesandbox.io/aktivasyon/' + uuid4.toString()
                                 };
-                                transporter.sendMail(bilgiler, function (error, info) {
-
-                                    if (error) throw error;
-
-                                    console.log('Eposta gönderildi ' + info.response);
-
+                                smtpTransport.sendMail(bilgiler, function (error, info) {
+                                    if (error) {
+                                        // Mail gönderimi sırasında sorun oluşursa sorunu terminal ekranına yazdırıyoruz.
+                                        return console.log(error);
+                                    }
+                                    // Terminal ekranına mail sunucusunda gelen mesajı yazdırıyoruz
+                                    console.log("Message sent " + info.response);
                                 });
+                                // transporter.sendMail(bilgiler, function (error, info) {
+
+                                //     if (error) throw error;
+
+                                //     console.log('Eposta gönderildi ' + info.response);
+
+                                // });
                                 pool.request() // or: new sql.Request(pool2)
                                     .query("insert into Aktivasyon VALUES ('" + req.body.KullaniciAd + "','" + uuid4.toString() + "')", function (err, verisonucu) {
                                         if (err) {
@@ -79,7 +100,7 @@ module.exports.memberinsert = function (req, res) {
                                         res.render('giris', { hata: '' });
 
                                     })
-                                res.render('giris', { hata: 'E-postanıza Onay Linki yollandı,eger goremediyseniz Spam ve Gereksiz kutunuza bakabilirsiniz.' });
+                                res.render('giris', { hata: 'E-postanıza Onay Linki yollandı,mailinizi kontrol edebilirsiniz.' });
                                 sql.close();
                             })
                     }
