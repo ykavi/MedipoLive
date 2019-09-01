@@ -20,7 +20,6 @@ var webconfig = {
 var UUID = require('uuid-js');
 const nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-const handlebars = require('handlebars');
 
 smtpTransport = nodemailer.createTransport(smtpTransport({
     host: 'smtp.gmail.com',
