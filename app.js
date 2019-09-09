@@ -27,7 +27,6 @@ app.post('/UyeOl', login.memberinsert);
 app.get('/', login.Giris);
 app.get('/sifre', login.sifre);
 app.post('/sifre', login.YeniSifre);
-app.post('/sifreUpdate', login.sifreUpdate);
 
 app.get('/kuzey', login.getMsgKuzey);
 app.get('/guney', login.getMsgGuney);
