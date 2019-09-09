@@ -380,49 +380,62 @@ module.exports.getGenel = function (req, res) {
 
 }
 module.exports.sifre = function (req, res) {
-    res.render('sifre', { hata: '' });
+    res.render('sifre', { hata: '', onay: '' });
 }
 module.exports.YeniSifre = function (req, res) {
+
+    var uuid4 = UUID.create();
+    console.log(uuid4.toString());
+
     return pool2Connect.then((pool) => {
         pool.request() // or: new sql.Request(pool2)
-            .query(" Select dbo.fn_SifreYenileme('" + req.body.Email + "','" + req.body.Cevaps + "') as SifreSonuc", function (err, verisonucu) {
+
+            .query(" select COUNT(*) as sayi from kullanici where Email = '" + req.body.Email + "' ", function (err, verisonucu) {
                 if (err) {
                     console.log(err);
                 }
-                verisonucu.recordset.forEach(function (kullanici) {
-                    if (kullanici.SifreSonuc == "Evet") {
-                        res.render('SifreYenileme', { Email: req.body.Email, Cevap: req.body.Cevaps, soru: req.body.soru, hata: '' });
-                    }
-                    else {
-                        res.render('sifre', { hata: 'Lütfen bilgilerinizi kontrol ediniz !' })
-                    }
-                });
+                if (verisonucu.recordset[0].sayi > 0) {
+                    pool.request() // or: new sql.Request(pool2)
+
+                        .query(" insert into sifreYenileme VALUES ('" + req.body.Email + "','" + uuid4.toString() + "')", function (err, verisonucu) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            sql.close();
+                            smtpTransport.verify(function (error, success) {
+                                if (error) throw error;
+                                console.log('E-Posta bağlantısı sağlandı');
+                            });
+                            let bilgiler = {
+                                from: 'MpChat',
+                                to: req.body.Email,
+                                subject: 'MpChat Şifre Yenileme',
+                                text: 'Linke tıklayıp şifrenizi yenileyebilirsiniz ' + 'https://828jkzxwx9.sse.codesandbox.io/newpassword/' + uuid4.toString()
+                            };
+                            smtpTransport.sendMail(bilgiler, function (error, info) {
+                                if (error) {
+                                    // Mail gönderimi sırasında sorun oluşursa sorunu terminal ekranına yazdırıyoruz.
+                                    return console.log(error);
+                                }
+                                // Terminal ekranına mail sunucusunda gelen mesajı yazdırıyoruz
+                                console.log("Message sent " + info.response);
+                            });
+
+                        });
+                    res.render('sifre', { onay: 'Şifre yenileme linki e-mailinize başarıyla yollanmıştır. ', hata: '' });
+                } else {
+                    res.render('sifre', { hata: 'Böyle bir e-mail bulunmamaktadır. ', onay: '' });
+                }
                 sql.close();
             });
+        //
+        // res.render('sifre', { hata: 'Şifre yenileme linki e-mail yoluyla başarıyla yollandı. ' });
+
 
     }).catch(err => {
         // ... error handler
     })
 
-}
-
-module.exports.sifreUpdate = function (req, res) {
-    if (req.body.password1 != req.body.password2) {
-        res.render('SifreYenileme', { Email: req.body.Email, Cevap: req.body.Cevaps, soru: req.body.soru, hata: 'Şifreler Uyuşmuyor !' });
-    }
-    return pool2Connect.then((pool) => {
-        pool.request() // or: new sql.Request(pool2)
-            .query("update kullanici set Sifre='" + req.body.password1 + "' where Email='" + req.body.Email + "' and Cevap='" + req.body.Cevaps + "'", function (err, verisonucu) {
-                if (err) {
-                    console.log(err);
-                }
-                res.render('giris', { hata: '' })
-                sql.close();
-
-            })
-    }).catch(err => {
-        // ... error handler
-    })
 }
 
 module.exports.hesap = function (req, res) {
@@ -887,6 +900,35 @@ module.exports.AktivasyonOnay = function (req, res) {
         // ... error handler
     })
 }
+module.exports.MailsifreYenile = function (req, res) {
+    return pool2Connect.then((pool) => {
+        pool.request() // or: new sql.Request(pool2)
+            .query("select kullaniciAd from Kullanici where Email = (select email from sifreYenileme where uuid = '" + req.params.kod + "')", function (err, nick) {
+                if (err) {
+                    console.log(err);
+                }
+                res.render('mail-sifre', { kod: req.params.kod, hata: '', nick: nick.recordset });
+            });
+    }).catch(err => {
+        // ... error handler
+    })
+}
+module.exports.MailsifreYenilePOST = function (req, res) {
+
+    return pool2Connect.then((pool) => {
+        pool.request() // or: new sql.Request(pool2)
+            .query("update kullanici set sifre =  '" + req.body.sifre + "'  where Email = (select email from sifreYenileme where uuid = '" + req.body.kod + "')", function (err, mailSifre) {
+                if (err) {
+                    console.log(err);
+                }
+                res.render('giris', { hata: 'Şifreniz başarıyla yenilenmiştir.Giriş yapabilirsiniz' });
+            });
+    }).catch(err => {
+        // ... error handler
+    })
+
+}
+
 module.exports.AdminHesapUpdate = function (req, res) {
     if (req.session.sheld == null) {
         res.render('giris', { hata: 'Lütfen Önce Giriş Yapınız..' });

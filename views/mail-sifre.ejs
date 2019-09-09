@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Şifre Yenileme</title>
+</head>
+
+<body style="background:linear-gradient(-45deg, #23a6d5, #23d5ab)">
+    <div style="text-align: center;margin: 20px;">
+        <h1 class="display-8">MpChat</h1>
+    </div>
+
+
+    <div class="container" style="margin-top:90px;">
+        <!-- Content here -->
+        <form action="/mailSifreYenileme" method="POST" style="height: 400px">
+            <h3>Kullanıcı Adın <span class="badge badge-secondary"><%=nick[0].kullaniciAd%></span></h3>
+
+            <div class="form-group" style="margin-top:20px;">
+                <p class="h5">Yeni şifre </p>
+                <input type="text" id="password" name="sifre" class="form-control" aria-describedby="emailHelp">
+
+
+            </div>
+            <div class="form-group">
+                <p class="h5">Yeni şifre (Tekrar)</p>
+                <input type="text" id="password2" name="sifre2" class="form-control">
+                <input name="kod" style="display: none" value="<%=kod%>"></input>
+                <% if (hata) { %>
+                <h6 class="text-danger" style="margin-top:6px;"><%=hata%></h6>
+                <% } %>
+                <h6 class="text-danger" id="hata" style="margin-top:7px;"></h6>
+
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <button type="button" onclick="iptal()" class="btn btn-dark">iptal</button>
+
+
+        </form>
+    </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+
+    function iptal() {
+        window.location.href = '/';
+    }
+    $("form").submit(function (event) {
+
+        if ($('#password').val() == null || $('#password').val().length < 4 || $('#password').val() != $('#password2').val()) {
+            $('#hata').text('Şifreler birbiriyle aynı olmalı ve En az 4 karakter içermeli');
+            event.preventDefault();
+        }
+
+    });
+
+</script>
+
+</html>

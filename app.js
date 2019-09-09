@@ -18,6 +18,8 @@ app.post('/giris', login.GirisYapildi);
 
 app.get('/UyeOl', login.UyeOl);
 app.get('/aktivasyon/:kod', login.AktivasyonOnay);
+app.get('/newpassword/:kod', login.MailsifreYenile);
+app.post('/mailSifreYenileme', login.MailsifreYenilePOST)
 
 app.get('/genel', login.getGenel);
 app.post('/UyeOl', login.memberinsert);

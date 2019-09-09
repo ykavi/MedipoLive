@@ -15,63 +15,73 @@
 </head>
 
 <body>
+    <div style="text-align: center; padding: 27px;">
+        <h4 class="subtitle is-3"
+            style="color: white; font-weight:bold; 	font-family: Copperplate,Copperplate Gothic Light,fantasy;font-size: 40px;">
+            Şifre Yenileme
+        </h4>
+    </div>
     <div class="container">
+        <div class="field">
+            <div class="control">
+            </div>
+        </div>
+        <form action="/sifre" method="POST">
+
+            <% if (hata) { %>
+
+            <label id="hata2" class="label has-text-danger"><%=hata%></label>
+            <% } %>
+            <% if (onay) { %>
+
+            <label id="basari" class="label has-text-danger"><%=onay%></label>
+            <% } %>
+
+            <div class="field" tabindex="2">
+
+                <label for="Email">
+
+                    <i class="fas fa-user"></i>E-Mail
+                </label>
+                <input name="Email" type="email" id="username">
+            </div>
+
             <div class="field">
-                    <div class="control">
+                <label class="label"><i class="fas fa-question"></i>Güvenlik Sorusu</label>
+                <div class="control">
+                    <div class="select">
+                        <select name="soru" class="mdb-select md-form">
+                            <option value="" disabled selected>Lütfen Soru Seçiniz</option>
+                            <option value="1"> En sevdiğiniz hayvan?</option>
+                            <option value="2">En sevdiğiniz renk?</option>
+                            <option value="3">En yakın arkadaşınızın adı nedir?</option>
+                        </select>
                     </div>
                 </div>
-    <form action="/sifre" method="POST">
+            </div>
 
-                    <h3 class="title is-3">1.Adım: Hesap Bilgileri</h3>
-                    <% if (hata) { %>
+            <div class="field" tabindex="2">
 
-                    <label id="hata2" class="label has-text-danger"><%=hata%></label>
-                    <% } %>
+                <label for="answer">
 
-                    <div class="field" tabindex="2">
+                    <i class="fas fa-key"></i>Cevap
+                </label>
+                <input name="Cevaps" type="text" id="username">
+            </div>
+            <div class="field is-grouped" style="margin-top:25px">
+                <div class="control">
+                    <button type="submit" value="Devam" class="button is-link">Devam</button> <button
+                        onclick="location.href='/'" type="button" class="dekorasyon1">İptal</button>
+                </div>
 
-                        <label for="Email">
-        
-                            <i class="fas fa-user"></i>E Posta
-                        </label>
-                        <input name="Email" type="text" id="username" >
-                    </div>
-        
-                    <div class="field">
-                        <label class="label"><i class="fas fa-question"></i>Güvenlik Sorusu</label>
-                        <div class="control">
-                            <div class="select">
-                                <select name="soru" class="mdb-select md-form">
-                                    <option value="" disabled selected>Lütfen Soru Seçiniz</option>
-                                    <option value="1"> En sevdiğiniz hayvan?</option>
-                                    <option value="2">En sevdiğiniz renk?</option>
-                                    <option value="3">En yakın arkadaşınızın adı nedir?</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="field" tabindex="2">
-
-                        <label for="answer">
-        
-                            <i class="fas fa-key"></i>Cevap
-                        </label>
-                        <input name="Cevaps" type="text" id="username" >
-                    </div>
-                    <div class="field is-grouped" style="margin-top:25px">
-                        <div class="control">
-                            <button type="submit" value="Devam" class="button is-link">Devam</button> <button onclick="location.href='/'" type="button" class="dekorasyon1">İptal</button>                  
-                        </div>
-
-                        </div>
-                    </div>
-                <!---------------------------->
+            </div>
+    </div>
+    <!---------------------------->
 
 
 
     </form>
-</div>
+    </div>
     <!--
     <script>
 
