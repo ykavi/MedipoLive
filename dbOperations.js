@@ -59,7 +59,7 @@ module.exports.memberinsert = function (req, res) {
                         sql.close();
                     } else {
                         pool.request() // or: new sql.Request(pool2)
-                            .query("insert into Kullanici(KullaniciAd,Sifre,Email,GuvenlikSorusu,Cevap,Aktivasyon) values ('" + req.body.KullaniciAd + "','" + req.body.Sifre + "','" + req.body.Eposta + "','" + req.body.Soru + "','" + req.body.Cevap + "',0)", function (err, recordset) {
+                            .query("insert into Kullanici(KullaniciAd,Sifre,Email,GuvenlikSorusu,Cevap,Aktivasyon) values (LOWER('" + req.body.KullaniciAd + "'),'" + req.body.Sifre + "','" + req.body.Eposta + "','" + req.body.Soru + "','" + req.body.Cevap + "',0)", function (err, recordset) {
                                 if (err) {
                                     console.log(err);
                                 }
@@ -221,7 +221,7 @@ module.exports.GirisYapildi = function (req, res) {
                                                                                 console.log(err);
                                                                             }
                                                                             req.session.sheld = true;
-                                                                            res.render('genel', { nick: req.body.ad, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
+                                                                            res.render('genel', { nick: kullanicilar.recordset[0].KullaniciAd, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
                                                                         });
                                                                 });
                                                         });
@@ -299,7 +299,7 @@ module.exports.getMsgKuzey = function (req, res) {
                             console.log(err);
                         }
                         sql.close();
-                        res.render('kuzey', { nick: req.session.nick, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
+                        res.render('kuzey', { nick: kullanicilar.recordset[0].KullaniciAd, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
                     })
             });
     }).catch(err => {
@@ -323,7 +323,7 @@ module.exports.getMsgGuney = function (req, res) {
                             console.log(err);
                         }
                         sql.close();
-                        res.render('guney', { nick: req.session.nick, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
+                        res.render('guney', { nick: kullanicilar.recordset[0].KullaniciAd, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
                     })
             });
     }).catch(err => {
@@ -347,7 +347,7 @@ module.exports.getMsgHalic = function (req, res) {
                             console.log(err);
                         }
                         sql.close();
-                        res.render('halic', { nick: req.session.nick, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
+                        res.render('halic', { nick: kullanicilar.recordset[0].KullaniciAd, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
                     })
             });
     }).catch(err => {
@@ -371,7 +371,7 @@ module.exports.getGenel = function (req, res) {
                             console.log(err);
                         }
                         sql.close();
-                        res.render('genel', { nick: req.session.nick, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
+                        res.render('genel', { nick: kullanicilar.recordset[0].KullaniciAd, mesajlar: mesajlar.recordset, kullanici: kullanicilar.recordset });
                     })
             });
     }).catch(err => {
