@@ -1,3 +1,3 @@
 # MedipoLive
 # Node js, socket io sohbet uygulaması.
-Live Link s1xon.sse.codesandbox.io/
+Live Link https://s1xon.sse.codesandbox.io/
