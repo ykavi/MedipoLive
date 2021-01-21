@@ -16,7 +16,7 @@
         "nodemailer-smtp-transport": "^2.7.4",
         "pg": "^7.11.0",
         "save": "^2.4.0",
-        "socket.io": "^2.2.0",
+        "socket.io": "^2.4.0",
         "uuid-js": "^0.7.5"
     },
     "scripts": {
